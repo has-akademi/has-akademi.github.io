@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Limits to Growth & Sistem Dinamiği — Görsel Özet</title>
+<style>
+  :root{--ink:#1e293b;--muted:#64748b;--line:#e2e8f0;--blue:#2563eb;--teal:#0d9488;--red:#dc2626;--amber:#d97706;--green:#16a34a;--purple:#7c3aed;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#f8fafc,#eef2ff);line-height:1.6;}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 18px 70px;}
+  header{background:linear-gradient(120deg,#0f766e,#1e3a8a 70%);color:#fff;border-radius:20px;padding:30px 28px;box-shadow:0 14px 32px rgba(15,23,42,.2);}
+  header h1{margin:0 0 6px;font-size:25px;}
+  header p{margin:0;opacity:.92;font-size:15px;}
+  .pill{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:4px 11px;border-radius:999px;font-size:12px;margin-bottom:12px;}
+  section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;margin:20px 0;box-shadow:0 6px 16px rgba(15,23,42,.05);}
+  h2{font-size:20px;margin:0 0 4px;}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 14px;}
+  .fig{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;padding:14px;text-align:center;}
+  .cap{font-size:13px;color:var(--muted);margin-top:8px;}
+  .note{font-size:12px;color:#94a3b8;text-align:center;margin-top:6px;font-style:italic;}
+  .legend{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;font-size:13px;margin-top:8px;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .sw{width:24px;height:4px;border-radius:2px;display:inline-block;}
+  footer{color:var(--muted);font-size:12px;text-align:center;margin-top:24px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="pill">Özgün eğitim şeması · kitaptan kopya değildir</span>
+  <h1>Limits to Growth & Sistem Dinamiği</h1>
+  <p>World3 modelinin mantığı: stoklar, geri besleme, gecikme ve "aşım" (overshoot) — kendi sözlerimizle, kendi çizimimizle.</p>
+</header>
+
+<!-- 1: overshoot curve -->
+<section>
+  <h2>1 · "Aşım ve çöküş" eğrisi (overshoot)</h2>
+  <p class="lead">Bir sistem, gecikmeli geri bildirim yüzünden sınırını fark etmeden geçerse önce zirve yapar, sonra çöker. Aynı sistem zamanında fren yaparsa sınırın altında dengeye oturur.</p>
+  <div class="fig">
+    <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" aria-label="Aşım ve çöküş eğrisi">
+      <!-- axes -->
+      <line x1="60" y1="310" x2="690" y2="310" stroke="#94a3b8" stroke-width="2"/>
+      <line x1="60" y1="40" x2="60" y2="310" stroke="#94a3b8" stroke-width="2"/>
+      <text x="375" y="345" text-anchor="middle" font-size="13" fill="#64748b">zaman →</text>
+      <text x="28" y="180" text-anchor="middle" font-size="13" fill="#64748b" transform="rotate(-90 28 180)">nüfus / üretim →</text>
+      <!-- carrying capacity line -->
+      <line x1="60" y1="150" x2="690" y2="150" stroke="#16a34a" stroke-width="2" stroke-dasharray="8 5"/>
+      <text x="600" y="142" font-size="12" fill="#16a34a" font-weight="700">Taşıma kapasitesi (sınır)</text>
+      <!-- overshoot & collapse curve (red) -->
+      <path d="M60,300 C220,300 300,90 400,70 C460,58 500,120 540,210 C570,275 620,300 690,305" fill="none" stroke="#dc2626" stroke-width="3"/>
+      <!-- sustainable curve (blue) -->
+      <path d="M60,300 C220,300 320,170 430,158 C540,148 620,152 690,152" fill="none" stroke="#2563eb" stroke-width="3"/>
+      <!-- overshoot marker -->
+      <circle cx="400" cy="70" r="5" fill="#dc2626"/>
+      <text x="400" y="58" text-anchor="middle" font-size="12" fill="#dc2626" font-weight="700">aşım zirvesi</text>
+      <!-- gap arrow -->
+      <line x1="430" y1="150" x2="430" y2="80" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="437" y="115" font-size="11" fill="#d97706">sınır aşıldı</text>
+    </svg>
+    <div class="legend">
+      <span><span class="sw" style="background:#dc2626"></span> Geç fren = aşım ve çöküş</span>
+      <span><span class="sw" style="background:#2563eb"></span> Zamanında fren = sürdürülebilir denge</span>
+      <span><span class="sw" style="background:#16a34a"></span> Sistemin sınırı</span>
+    </div>
+    <div class="note">Kavramsal temsil; gerçek World3 senaryolarını yeniden çizen özgün bir şemadır.</div>
+  </div>
+</section>
+
+<!-- 2: World3 subsystems feedback -->
+<section>
+  <h2>2 · World3'ün beş stoğu ve döngüleri</h2>
+  <p class="lead">Model, dünyayı birbirini besleyen beş büyük stokla temsil eder. Oklar etkileri, kırmızı kesik ok bir pekiştiren büyüme döngüsünü gösterir.</p>
+  <div class="fig">
+    <svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" aria-label="World3 alt sistemleri">
+      <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker>
+            <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#dc2626"/></marker></defs>
+      <g text-anchor="middle" font-size="13">
+        <g><circle cx="360" cy="80" r="48" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/><text x="360" y="78" font-weight="700" fill="#1e3a8a">Nüfus</text><text x="360" y="95" font-size="11" fill="#1e3a8a">(stok)</text></g>
+        <g><circle cx="585" cy="200" r="48" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/><text x="585" y="198" font-weight="700" fill="#5b21b6">Sanayi</text><text x="585" y="215" font-size="11" fill="#5b21b6">üretimi</text></g>
+        <g><circle cx="490" cy="330" r="46" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/><text x="490" y="328" font-weight="700" fill="#991b1b">Kirlilik</text><text x="490" y="345" font-size="11" fill="#991b1b">(stok)</text></g>
+        <g><circle cx="230" cy="330" r="46" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><text x="230" y="326" font-weight="700" fill="#92400e">Doğal</text><text x="230" y="343" font-size="11" fill="#92400e">kaynaklar</text></g>
+        <g><circle cx="135" cy="200" r="48" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/><text x="135" y="198" font-weight="700" fill="#166534">Gıda</text><text x="135" y="215" font-size="11" fill="#166534">üretimi</text></g>
+      </g>
+      <g fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)">
+        <path d="M183,178 C260,130 300,110 318,98"/>
+        <path d="M403,108 C480,140 510,160 545,178"/>
+        <path d="M575,247 C545,285 530,300 515,308"/>
+        <path d="M445,345 C390,360 320,360 270,348"/>
+        <path d="M205,290 C175,255 158,240 150,238"/>
+        <path d="M180,235 C250,290 300,310 320,320" stroke="#94a3b8"/>
+      </g>
+      <!-- reinforcing loop arrow -->
+      <path d="M360,128 C200,170 200,150 135,155" fill="none" stroke="#dc2626" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#ar)"/>
+      <text x="225" y="148" font-size="11" fill="#dc2626" font-weight="700">büyüme döngüsü (R)</text>
+    </svg>
+    <div class="cap">Nüfus → daha çok gıda ve sanayi talebi → daha çok kaynak kullanımı ve kirlilik → bunlar dönüp nüfusu ve üretimi sınırlar. <b>Gecikmeler</b> yüzünden sınır sinyali geç gelir; işte "aşım" buradan doğar.</div>
+    <div class="note">World3'ün yapısını sadeleştiren özgün bir şemadır.</div>
+  </div>
+</section>
+
+<!-- 3: overshoot recipe -->
+<section>
+  <h2>3 · "Aşım" için üç malzeme</h2>
+  <p class="lead">Kitabın merkezî tezi: Bir sistem sınırını ancak şu üçü bir aradayken aşar.</p>
+  <div class="fig" style="text-align:left;background:#fff;border-style:solid;padding:6px 4px">
+    <svg viewBox="0 0 720 150" xmlns="http://www.w3.org/2000/svg" aria-label="Aşımın üç koşulu">
+      <g font-size="13">
+        <rect x="20" y="35" width="210" height="80" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+        <text x="125" y="65" text-anchor="middle" font-weight="700" fill="#1e3a8a">1. Üstel büyüme</text>
+        <text x="125" y="88" text-anchor="middle" font-size="11.5" fill="#1e3a8a">hızlı artış + atalet</text>
+        <text x="248" y="82" font-size="26" fill="#94a3b8">+</text>
+        <rect x="265" y="35" width="210" height="80" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+        <text x="370" y="65" text-anchor="middle" font-weight="700" fill="#92400e">2. Bir sınır</text>
+        <text x="370" y="88" text-anchor="middle" font-size="11.5" fill="#92400e">kaynak / kapasite tavanı</text>
+        <text x="493" y="82" font-size="26" fill="#94a3b8">+</text>
+        <rect x="510" y="35" width="190" height="80" rx="12" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+        <text x="605" y="65" text-anchor="middle" font-weight="700" fill="#991b1b">3. Gecikmeli</text>
+        <text x="605" y="88" text-anchor="middle" font-size="11.5" fill="#991b1b">/ çarpık geri bildirim</text>
+      </g>
+    </svg>
+    <div class="cap" style="text-align:center"><b>= Aşım (overshoot).</b> Bu reçete, halk sağlığındaki gecikme sorununun (örn. salgın eğrisinin geç fark edilmesi) küresel ölçekteki karşılığıdır.</div>
+  </div>
+</section>
+
+<footer>
+  Bu sayfadaki tüm görseller, kavramları anlatmak için hazırlanmış <b>özgün</b> şemalardır; telifli kitaptan kopyalanmamıştır.<br>
+  Kaynak fikirler: Meadows, Randers &amp; Meadows, <i>Limits to Growth: The 30-Year Update</i> (2004); Forrester, <i>World Dynamics</i> (1971).
+</footer>
+</div>
+</body>
+</html>
