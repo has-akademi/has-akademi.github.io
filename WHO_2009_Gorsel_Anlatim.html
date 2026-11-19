@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSÖ 2009 — Sağlık Sistemleri İçin Sistem Düşüncesi · Görsel Anlatım</title>
+<style>
+  :root{
+    --blue:#1F4E79; --blue2:#2E75B6; --teal:#0E9E8E; --teal2:#13b3a0;
+    --amber:#E8A13A; --red:#D4583B; --purple:#7E5BC2; --green:#3FA34D;
+    --ink:#1c2733; --muted:#5b6b7a; --line:#dce4ec; --bg:#f4f8fb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;color:var(--ink);
+    background:linear-gradient(180deg,#eef5fa,#f7fbfd);line-height:1.6}
+  header{background:linear-gradient(120deg,var(--blue),var(--teal));color:#fff;
+    padding:46px 24px 40px;text-align:center}
+  header h1{margin:0 0 8px;font-size:30px;letter-spacing:.2px}
+  header p{margin:4px auto;max-width:760px;font-size:16px;opacity:.95}
+  .badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);
+    padding:5px 14px;border-radius:30px;font-size:13px;margin-top:12px}
+  .wrap{max-width:980px;margin:0 auto;padding:24px}
+  nav.toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 22px;
+    margin:24px 0;box-shadow:0 6px 18px rgba(20,60,90,.06)}
+  nav.toc b{color:var(--blue);font-size:15px}
+  nav.toc a{display:inline-block;margin:6px 14px 2px 0;color:var(--blue2);text-decoration:none;font-size:14px}
+  nav.toc a:hover{text-decoration:underline}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px 28px;
+    margin:22px 0;box-shadow:0 8px 22px rgba(20,60,90,.07)}
+  h2.s{color:var(--blue);font-size:23px;margin:0 0 6px;display:flex;align-items:center;gap:10px}
+  h2.s .n{background:var(--blue);color:#fff;width:34px;height:34px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;font-size:16px;flex:none}
+  .lead{color:var(--muted);font-size:15px;margin:2px 0 16px}
+  p{margin:10px 0}
+  .fig{display:flex;justify-content:center;margin:18px 0 6px}
+  .cap{text-align:center;color:var(--muted);font-size:13px;font-style:italic;margin-top:6px}
+  .box{border-radius:12px;padding:14px 18px;margin:12px 0;font-size:15px}
+  .b-blue{background:#eaf2fb;border-left:5px solid var(--blue2)}
+  .b-teal{background:#e3f6f3;border-left:5px solid var(--teal)}
+  .b-amber{background:#fdf2e0;border-left:5px solid var(--amber)}
+  .b-red{background:#fbe9e4;border-left:5px solid var(--red)}
+  .b-purple{background:#f1ecfa;border-left:5px solid var(--purple)}
+  .quote{font-style:italic;color:var(--blue);background:#eef4fa;border-left:5px solid var(--blue);
+    padding:14px 18px;border-radius:10px;margin:14px 0;font-size:15px}
+  table.cmp{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.5px}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.cmp th{background:var(--blue);color:#fff}
+  table.cmp tr:nth-child(even) td{background:#f6fafd}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+  .step{display:flex;gap:12px;align-items:flex-start;margin:9px 0}
+  .step .num{flex:none;width:30px;height:30px;border-radius:50%;color:#fff;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:14px}
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:30px 20px 50px}
+  .tag{display:inline-block;background:var(--teal);color:#fff;font-size:11px;padding:2px 9px;
+    border-radius:20px;margin-left:6px;vertical-align:middle}
+</style>
+</head>
+<body>
+<header>
+  <h1>Sağlık Sistemlerini Güçlendirmek İçin Sistem Düşüncesi</h1>
+  <p>Dünya Sağlık Örgütü (WHO) · 2009 · Editörler: Don de Savigny &amp; Taghreed Adam</p>
+  <p>Alliance for Health Policy and Systems Research</p>
+  <div class="badge">Renkli görsel anlatım · lise düzeyinde</div>
+</header>
+
+<div class="wrap">
+
+<nav class="toc">
+  <b>İçindekiler</b><br>
+  <a href="#s1">1 · Makine değil, canlı ağ</a>
+  <a href="#s2">2 · Altı yapı taşı</a>
+  <a href="#s3">3 · Tek müdahale, yayılan dalga</a>
+  <a href="#s4">4 · Sistem düşüncesine on adım</a>
+  <a href="#s5">5 · Soruyu değiştirmek</a>
+  <a href="#s6">6 · Yarar ve riskler</a>
+</nav>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2 class="s"><span class="n">1</span> Sağlık sistemi: makine değil, canlı bir ağ</h2>
+  <p class="lead">Raporun çıkış fikri: sağlık sistemini bir makine gibi değil, birbirine tepki veren canlı bir ağ gibi düşünmeliyiz.</p>
+  <div class="fig">
+  <svg viewBox="0 0 760 270" width="100%" style="max-width:720px" xmlns="http://www.w3.org/2000/svg">
+    <!-- machine view -->
+    <text x="180" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#D4583B">Makine bakışı (yanlış)</text>
+    <rect x="60" y="55" width="60" height="70" rx="5" fill="#f0d9d2" stroke="#D4583B"/>
+    <rect x="150" y="55" width="60" height="70" rx="5" fill="#f0d9d2" stroke="#D4583B"/>
+    <rect x="240" y="55" width="60" height="70" rx="5" fill="#f0d9d2" stroke="#D4583B"/>
+    <line x1="120" y1="90" x2="150" y2="90" stroke="#D4583B" stroke-width="2"/>
+    <line x1="210" y1="90" x2="240" y2="90" stroke="#D4583B" stroke-width="2"/>
+    <text x="180" y="150" text-anchor="middle" font-size="12.5" fill="#7a5a52">Parçayı tak → sonuç</text>
+    <text x="180" y="168" text-anchor="middle" font-size="12.5" fill="#7a5a52">doğrusal, öngörülebilir</text>
+    <!-- divider -->
+    <line x1="380" y1="45" x2="380" y2="230" stroke="#cdd8e2" stroke-width="2" stroke-dasharray="5 5"/>
+    <!-- network view -->
+    <text x="580" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#0E9E8E">Sistem bakışı (doğru)</text>
+    <g stroke="#0E9E8E" stroke-width="1.6" opacity="0.6">
+      <line x1="500" y1="80" x2="600" y2="70"/><line x1="600" y1="70" x2="680" y2="110"/>
+      <line x1="680" y1="110" x2="610" y2="170"/><line x1="610" y1="170" x2="510" y2="160"/>
+      <line x1="510" y1="160" x2="500" y2="80"/><line x1="500" y1="80" x2="610" y2="170"/>
+      <line x1="600" y1="70" x2="510" y2="160"/><line x1="680" y1="110" x2="500" y2="80"/>
+    </g>
+    <g fill="#13b3a0" stroke="#fff" stroke-width="2">
+      <circle cx="500" cy="80" r="15"/><circle cx="600" cy="70" r="15"/>
+      <circle cx="680" cy="110" r="15"/><circle cx="610" cy="170" r="15"/>
+      <circle cx="510" cy="160" r="15"/>
+    </g>
+    <text x="580" y="205" text-anchor="middle" font-size="12.5" fill="#0a6e63">Her düğüm diğerlerini etkiler;</text>
+    <text x="580" y="223" text-anchor="middle" font-size="12.5" fill="#0a6e63">bütün, parçaların toplamından farklı</text>
+  </svg>
+  </div>
+  <div class="box b-teal"><b>Karmaşık uyarlanır sistem:</b> kendi kendine örgütlenir, müdahaleye uyum sağlar (hedefin etrafından dolaşır), doğrusal değildir, geri besleme ve gecikmelerle çalışır, beklenmedik (beliren) davranışlar üretir.</div>
+  <div class="quote">Anahtar mesaj: Bir sağlık sistemi güçlendirme girişiminde aktörler ve bileşenler ortak bir çerçeve içinde ne kadar çok birbiriyle konuşursa, başarı şansı o kadar yüksektir.</div>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2 class="s"><span class="n">2</span> Sağlık sisteminin altı yapı taşı</h2>
+  <p class="lead">Sistem altı bileşenden oluşur — ama bunlar ayrı kutular değil, birbirine bağlı bir ağdır. Birine dokununca hepsi titrer.</p>
+  <div class="fig">
+  <svg viewBox="0 0 720 420" width="100%" style="max-width:680px" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="core" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#2E75B6"/><stop offset="100%" stop-color="#1F4E79"/>
+      </radialGradient>
+    </defs>
+    <!-- connecting links among blocks -->
+    <g stroke="#bcd0e3" stroke-width="1.4" opacity="0.8">
+      <line x1="360" y1="90" x2="150" y2="160"/><line x1="360" y1="90" x2="570" y2="160"/>
+      <line x1="150" y1="160" x2="150" y2="300"/><line x1="570" y1="160" x2="570" y2="300"/>
+      <line x1="150" y1="300" x2="360" y2="360"/><line x1="570" y1="300" x2="360" y2="360"/>
+      <line x1="150" y1="160" x2="570" y2="300"/><line x1="570" y1="160" x2="150" y2="300"/>
+      <line x1="360" y1="90" x2="360" y2="360"/>
+    </g>
+    <!-- center goals -->
+    <circle cx="360" cy="225" r="62" fill="url(#core)"/>
+    <text x="360" y="212" text-anchor="middle" font-size="12.5" fill="#fff" font-weight="700">HEDEFLER</text>
+    <text x="360" y="230" text-anchor="middle" font-size="10.5" fill="#dce9f6">Daha iyi sağlık ·</text>
+    <text x="360" y="244" text-anchor="middle" font-size="10.5" fill="#dce9f6">yanıt verebilirlik ·</text>
+    <text x="360" y="258" text-anchor="middle" font-size="10.5" fill="#dce9f6">koruma · verimlilik</text>
+    <!-- 6 blocks -->
+    <g font-size="12" font-weight="700" text-anchor="middle">
+      <g><circle cx="360" cy="78" r="48" fill="#3FA34D"/><text x="360" y="74" fill="#fff">Hizmet</text><text x="360" y="90" fill="#fff">sunumu</text></g>
+      <g><circle cx="150" cy="150" r="48" fill="#0E9E8E"/><text x="150" y="146" fill="#fff">Sağlık</text><text x="150" y="162" fill="#fff">iş gücü</text></g>
+      <g><circle cx="570" cy="150" r="48" fill="#2E75B6"/><text x="570" y="146" fill="#fff">Bilgi</text><text x="570" y="162" fill="#fff">sistemleri</text></g>
+      <g><circle cx="150" cy="300" r="48" fill="#7E5BC2"/><text x="150" y="296" fill="#fff">Ürün/aşı/</text><text x="150" y="312" fill="#fff">teknoloji</text></g>
+      <g><circle cx="570" cy="300" r="48" fill="#E8A13A"/><text x="570" y="296" fill="#fff">Finansman</text></g>
+      <g><circle cx="360" cy="372" r="48" fill="#D4583B"/><text x="360" y="368" fill="#fff">Liderlik &amp;</text><text x="360" y="384" fill="#fff">yönetişim</text></g>
+    </g>
+  </svg>
+  </div>
+  <p class="cap">Altı yapı taşı, ortadaki dört hedef etrafında ve birbirine bağlı olarak çalışır.</p>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2 class="s"><span class="n">3</span> Tek müdahale, tüm sisteme yayılan dalga</h2>
+  <p class="lead">Görünüşte tek bir taşı hedefleyen müdahale, gerçekte her köşeyi etkiler. Örnek: yeni bir aşının getirilmesi.</p>
+  <div class="fig">
+  <svg viewBox="0 0 720 300" width="100%" style="max-width:700px" xmlns="http://www.w3.org/2000/svg">
+    <!-- ripple rings -->
+    <g fill="none" stroke="#2E75B6" opacity="0.35">
+      <circle cx="360" cy="150" r="70"/><circle cx="360" cy="150" r="110"/><circle cx="360" cy="150" r="150"/>
+    </g>
+    <circle cx="360" cy="150" r="44" fill="#7E5BC2"/>
+    <text x="360" y="146" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">YENİ</text>
+    <text x="360" y="162" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">AŞI</text>
+    <g font-size="11.5" text-anchor="middle">
+      <g><rect x="300" y="20" width="120" height="34" rx="8" fill="#e3f6f3" stroke="#0E9E8E"/><text x="360" y="41" fill="#0a6e63">Soğuk zincir / lojistik</text></g>
+      <g><rect x="560" y="120" width="140" height="34" rx="8" fill="#eaf2fb" stroke="#2E75B6"/><text x="630" y="141" fill="#1F4E79">Kayıt &amp; takip (bilgi)</text></g>
+      <g><rect x="560" y="220" width="140" height="34" rx="8" fill="#fdf2e0" stroke="#E8A13A"/><text x="630" y="241" fill="#8a5a14">Ek bütçe / kaynak kayması</text></g>
+      <g><rect x="300" y="250" width="120" height="34" rx="8" fill="#fbe9e4" stroke="#D4583B"/><text x="360" y="271" fill="#9c3a25">Rutin hizmet aksaması</text></g>
+      <g><rect x="20" y="220" width="140" height="34" rx="8" fill="#eef0f8" stroke="#7E5BC2"/><text x="90" y="241" fill="#5a3f96">Onay / düzenleme</text></g>
+      <g><rect x="20" y="120" width="140" height="34" rx="8" fill="#e8f5ea" stroke="#3FA34D"/><text x="90" y="141" fill="#266b30">Personel zamanı (iş gücü)</text></g>
+    </g>
+  </svg>
+  </div>
+  <div class="box b-amber"><b>Çıkarım:</b> “İşe yarayacak mı?” diye sormak yetmez. Asıl soru: <b>“Bu müdahale, sistemin geri kalanında ne tetikler?”</b> Bazı dalgalar olumlu (sinerji), bazıları beklenmedik biçimde olumsuzdur.</div>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2 class="s"><span class="n">4</span> Sistem düşüncesine on adım <span class="tag">think systems, act systems</span></h2>
+  <p class="lead">Raporun en somut aracı: önce müdahaleyi sistemli TASARLA, sonra etkisini sistemli DEĞERLENDİR.</p>
+  <div class="grid2">
+    <div>
+      <div class="box b-blue" style="text-align:center;font-weight:700;color:var(--blue)">AŞAMA 1 · Tasarım</div>
+      <div class="step"><span class="num" style="background:#2E75B6">1</span><div>Paydaşları bir araya getir (altı taşın hepsinden)</div></div>
+      <div class="step"><span class="num" style="background:#2E75B6">2</span><div>Birlikte beyin fırtınası yap (sinerji ve ters etkiler)</div></div>
+      <div class="step"><span class="num" style="background:#2E75B6">3</span><div>Etkileri kavramsallaştır (sistem haritası çiz)</div></div>
+      <div class="step"><span class="num" style="background:#2E75B6">4</span><div>Uyarla ve yeniden tasarla</div></div>
+    </div>
+    <div>
+      <div class="box b-teal" style="text-align:center;font-weight:700;color:var(--teal)">AŞAMA 2 · Değerlendirme</div>
+      <div class="step"><span class="num" style="background:#0E9E8E">5</span><div>Göstergeleri belirle (yan etkileri de yakala)</div></div>
+      <div class="step"><span class="num" style="background:#0E9E8E">6</span><div>Değerlendirme tasarımını seç (çok yöntemli)</div></div>
+      <div class="step"><span class="num" style="background:#0E9E8E">7</span><div>Değerlendirme planını geliştir</div></div>
+      <div class="step"><span class="num" style="background:#0E9E8E">8</span><div>Gerçekçi zaman çizelgesi kur (gecikmeli etkiler)</div></div>
+      <div class="step"><span class="num" style="background:#0E9E8E">9</span><div>Bütçele</div></div>
+      <div class="step"><span class="num" style="background:#0E9E8E">10</span><div>Kaynağını sağla</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2 class="s"><span class="n">5</span> Soruyu değiştirmek</h2>
+  <p class="lead">Sistem düşüncesi, değerlendirme sorusunu daraltmaktan çıkarıp genişletir.</p>
+  <table class="cmp">
+    <tr><th>Geleneksel yaklaşım</th><th>Sistem düşüncesi yaklaşımı</th></tr>
+    <tr><td>“Bu müdahale hedeflediği çıktıyı sağladı mı?”</td><td>“Sistemin bütünü bu müdahaleye nasıl tepki verdi?”</td></tr>
+    <tr><td>Tek bir yapı taşına odaklanır</td><td>Altı taş arasındaki bağlantıları izler</td></tr>
+    <tr><td>Sinerji ve ters etkileri görmezden gelir</td><td>Sinerjiyi güçlendirir, zararı önceden azaltır</td></tr>
+    <tr><td>Kısa vadeli, anlık ölçüm</td><td>Gecikmeli, uzun vadeli sonuçları izler</td></tr>
+    <tr><td>Tek döngülü öğrenme (kararı düzelt)</td><td>Çift döngülü öğrenme (anlayışı düzelt)</td></tr>
+  </table>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6">
+  <h2 class="s"><span class="n">6</span> Yararları ve riskleri</h2>
+  <div class="grid2">
+    <div>
+      <div class="box b-teal"><b>Güçlü yönleri</b><br>• Soyut kuramı somut araca çevirir<br>• Düşük/orta gelirli ülkelerin gerçek sorununa hitap eder<br>• Beklenmedik sonuçları önceden düşünür<br>• Değerlendirmeyi tasarıma gömer</div>
+    </div>
+    <div>
+      <div class="box b-red"><b>Sınırları</b><br>• Geniş ölçekte test edilmiş bir reçete değil<br>• Zaman, uzmanlık ve para ister<br>• “Her şey her şeye bağlı” → karar felci riski<br>• Sistem etkilerini ölçmek zordur</div>
+    </div>
+  </div>
+  <div class="quote">Özet: Sağlık sistemlerini güçlendirmenin yolu, daha çok para ya da tek tek müdahaleler değil; parçaların birbiriyle konuştuğu bütüncül bir bakış ve önceden düşünülmüş, sistemli bir değerlendirmedir.</div>
+</section>
+
+</div>
+
+<footer>
+  Kaynak: de Savigny, D. &amp; Adam, T. (Ed.) (2009). <i>Systems Thinking for Health Systems Strengthening.</i> Alliance for Health Policy and Systems Research, WHO, Cenevre. · Açık erişim: WHO IRIS (iris.who.int).<br>
+  Şemalar bu çalışma için hazırlanmış özgün eğitim görselleridir.
+</footer>
+</body>
+</html>
