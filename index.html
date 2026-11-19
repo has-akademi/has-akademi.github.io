@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Has Akademi · Halk Sağlığı Görsel Bilgi & İnfografik Kütüphanesi</title>
+<style>
+  :root {
+    --blue: #1F4E79;
+    --blue2: #2E75B6;
+    --teal: #0E9E8E;
+    --teal2: #13b3a0;
+    --amber: #E8A13A;
+    --purple: #7E5BC2;
+    --ink: #1c2733;
+    --muted: #5b6b7a;
+    --line: #dce4ec;
+    --bg: #f4f8fb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    background: linear-gradient(180deg, #eef5fa 0%, #f7fbfd 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(125deg, var(--blue), var(--teal));
+    color: #fff;
+    padding: 52px 24px 44px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0 0 10px;
+    font-size: 32px;
+    letter-spacing: 0.3px;
+  }
+  header p {
+    margin: 0 auto;
+    max-width: 680px;
+    font-size: 16px;
+    opacity: 0.94;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    padding: 5px 15px;
+    border-radius: 30px;
+    font-size: 13px;
+    margin-top: 14px;
+  }
+  .wrap {
+    max-width: 1020px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 28px 20px;
+    flex: 1;
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    box-shadow: 0 6px 18px rgba(20, 60, 90, 0.05);
+  }
+  .search-box {
+    flex: 1;
+    min-width: 220px;
+    padding: 9px 14px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: var(--teal); }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; }
+  .filter-btn {
+    background: #f0f5fa;
+    border: 1px solid var(--line);
+    color: var(--blue);
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 8px 22px rgba(20, 60, 90, 0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(20, 60, 90, 0.11);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .cat {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: #e3f6f3;
+    color: #0a6e63;
+  }
+  .cat.env { background: #eaf2fb; color: var(--blue); }
+  .cat.adv { background: #fdf2e0; color: #8a5a14; }
+  .date { font-size: 12px; color: var(--muted); }
+  .card h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: var(--blue);
+    line-height: 1.35;
+  }
+  .card p {
+    margin: 0 0 18px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid #eef3f7;
+    font-size: 13px;
+  }
+  .author { color: var(--muted); font-weight: 500; }
+  .btn {
+    display: inline-block;
+    background: var(--teal);
+    color: #fff;
+    text-decoration: none;
+    padding: 7px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13.5px;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: #0b8275; }
+  .btn.soon {
+    background: #e9eff5;
+    color: var(--muted);
+    pointer-events: none;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 28px 20px 36px;
+    border-top: 1px solid var(--line);
+    background: #fff;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Has Akademi</h1>
+  <p>Halk Sağlığı Görsel Bilgi Notları, İnteraktif İnfografikler ve Akademik Özetler</p>
+  <div class="badge">Açık Paylaşım · Görsel Öğrenme Arşivi</div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <input type="text" id="searchInput" class="search-box" placeholder="Başlık, konu veya yazar ara...">
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">Tümü</button>
+      <button class="filter-btn" data-filter="sistem">Sağlık Sistemleri</button>
+      <button class="filter-btn" data-filter="cevre">Çevre &amp; Maruziyet</button>
+      <button class="filter-btn" data-filter="savunuculuk">Savunuculuk</button>
+    </div>
+  </div>
+
+  <div class="grid" id="cardGrid">
+    <!-- Kart 1: DSÖ 2009 -->
+    <article class="card" data-cat="sistem">
+      <div>
+        <div class="card-top">
+          <span class="cat">Sağlık Sistemleri</span>
+          <span class="date">Kasım 2026</span>
+        </div>
+        <h3>Sağlık Sistemlerini Güçlendirmek İçin Sistem Düşüncesi (DSÖ 2009)</h3>
+        <p>Don de Savigny &amp; Taghreed Adam editörlüğündeki temel DSÖ raporunun altı yapı taşı, dalga etkisi ve 10 adımlık uygulama rehberi üzerinden görsel anlatımı.</p>
+      </div>
+      <div class="card-footer">
+        <span class="author">Hatice Büşra Arısın</span>
+        <a href="who-2009.html" class="btn">İncele &rarr;</a>
+      </div>
+    </article>
+
+    <!-- Kart 2: Exposure Science (Hazırlanıyor) -->
+    <article class="card" data-cat="cevre">
+      <div>
+        <div class="card-top">
+          <span class="cat env">Çevre &amp; Maruziyet</span>
+          <span class="date">Kasım 2026</span>
+        </div>
+        <h3>Exposure Science (Maruziyet Bilimi): Kavramsal Çerçeve ve Kurucu Metinler</h3>
+        <p>Kaynak–doz–hastalık zincirindeki kara kutuyu açan disiplinlerarası yaklaşım, biyomonitörizasyon, ekzopozom ve öncü araştırmacılar.</p>
+      </div>
+      <div class="card-footer">
+        <span class="author">Zeynep Tüzün</span>
+        <a href="exposure-science.html" class="btn soon">Hazırlanıyor</a>
+      </div>
+    </article>
+  </div>
+</div>
+
+<footer>
+  Has Akademi · Halk Sağlığı Eğitim ve Paylaşım Platformu<br>
+  Bu sayfa eğitim ve akademik paylaşım amacıyla hazırlanmıştır.
+</footer>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.card');
+  let activeCat = 'all';
+
+  function filterCards() {
+    const query = searchInput.value.toLowerCase().trim();
+    cards.forEach(card => {
+      const cat = card.getAttribute('data-cat');
+      const text = card.innerText.toLowerCase();
+      const matchesCat = (activeCat === 'all' || cat === activeCat);
+      const matchesText = text.includes(query);
+      card.style.display = (matchesCat && matchesText) ? 'flex' : 'none';
+    });
+  }
+
+  searchInput.addEventListener('input', filterCards);
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCat = btn.getAttribute('data-filter');
+      filterCards();
+    });
+  });
+</script>
+</body>
+</html>
