@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maruziyet Bilimi (Exposure Science) — Görsel Bilgi Raporu</title>
+<style>
+  :root{
+    --navy:#1F4E79; --blue:#2E75B6; --teal:#0E9E8E;
+    --amber:#E8A13A; --coral:#D4583B; --purple:#7E5BC2;
+    --ink:#1c2b39; --muted:#5a6b7b; --line:#d8e4ee; --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+       color:var(--ink);line-height:1.6;background:linear-gradient(180deg,#eef5fa 0%,#f7fbfd 100%);min-height:100vh}
+  #progress{position:fixed;top:0;left:0;height:4px;width:0;background:var(--teal);z-index:1000;transition:width .08s linear;box-shadow:0 0 8px rgba(14,158,142,.6)}
+  header{background:linear-gradient(120deg,var(--navy) 0%,var(--blue) 55%,var(--teal) 100%);color:#fff;padding:64px 24px 92px;position:relative;overflow:hidden}
+  header::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.07)}
+  header::before{content:"";position:absolute;left:-80px;bottom:-160px;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.05)}
+  .wrap{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+  .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:5px 14px;border-radius:999px;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+  header h1{font-size:clamp(1.9rem,4.2vw,3rem);margin:18px 0 8px;line-height:1.15}
+  header h1 span{color:#bff3ea}
+  header p.lead{max-width:760px;font-size:1.1rem;opacity:.93;margin:0}
+  .formula{margin-top:22px;display:inline-block;background:rgba(0,0,0,.18);padding:10px 18px;border-radius:12px;font-family:Georgia,serif;font-size:1.05rem}
+  nav.toc{max-width:1100px;margin:-56px auto 0;padding:0 16px;position:relative;z-index:5}
+  .toc-inner{background:#fff;border-radius:20px;box-shadow:0 12px 30px rgba(31,78,121,.13);padding:16px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .toc a{text-decoration:none;color:var(--navy);background:#eef5fa;border:1px solid var(--line);padding:8px 15px;border-radius:999px;font-size:.92rem;font-weight:600;transition:.2s}
+  .toc a:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .toc a b{color:var(--teal);margin-right:4px}
+  .toc a:hover b{color:#bff3ea}
+  main{max-width:1100px;margin:0 auto;padding:30px 16px 60px}
+  section.card{background:var(--card);border-radius:22px;box-shadow:0 6px 22px rgba(31,78,121,.08);padding:34px 34px 30px;margin:30px 0;border-top:6px solid var(--blue);scroll-margin-top:24px}
+  section.card:nth-of-type(2){border-top-color:var(--teal)}
+  section.card:nth-of-type(3){border-top-color:var(--purple)}
+  section.card:nth-of-type(4){border-top-color:var(--amber)}
+  section.card:nth-of-type(5){border-top-color:var(--coral)}
+  section.card:nth-of-type(6){border-top-color:var(--navy)}
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+  .num{flex:none;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:1.25rem;color:#fff;background:var(--blue)}
+  h2{margin:0;font-size:1.6rem;color:var(--navy);line-height:1.2}
+  h2 small{display:block;font-size:.95rem;color:var(--muted);font-weight:500;margin-top:3px}
+  h3{color:var(--navy);margin:22px 0 8px;font-size:1.15rem}
+  p{margin:10px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.grid2,.grid3{grid-template-columns:1fr}section.card{padding:24px 18px}}
+  .box{border-radius:16px;padding:16px 18px;background:#f4f9fc;border:1px solid var(--line)}
+  .box h4{margin:0 0 6px;font-size:1rem}
+  .box.teal{background:#e8f7f5;border-color:#bfe8e2}.box.teal h4{color:var(--teal)}
+  .box.amber{background:#fdf4e6;border-color:#f4dcb2}.box.amber h4{color:#b57414}
+  .box.coral{background:#fbece8;border-color:#f1c8bd}.box.coral h4{color:var(--coral)}
+  .box.purple{background:#f2eefb;border-color:#d9cdf3}.box.purple h4{color:var(--purple)}
+  .box.navy{background:#e9f0f7;border-color:#c7d7e8}.box.navy h4{color:var(--navy)}
+  .summary{margin-top:20px;border-left:6px solid var(--teal);background:linear-gradient(90deg,#e8f7f5,#fff);padding:14px 18px;border-radius:0 14px 14px 0}
+  .summary strong{color:var(--teal)}
+  .case{margin-top:18px;border:2px dashed var(--amber);border-radius:16px;padding:14px 18px;background:#fffaf1}
+  .case .tag{display:inline-block;background:var(--amber);color:#fff;font-size:.75rem;font-weight:700;padding:2px 10px;border-radius:999px;letter-spacing:.04em;text-transform:uppercase}
+  ul{padding-left:20px;margin:8px 0}li{margin:4px 0}
+  .svgwrap{background:#fbfdfe;border:1px solid var(--line);border-radius:16px;padding:10px;margin-top:16px}
+  svg{width:100%;height:auto;display:block}
+  svg text{font-family:"Segoe UI",system-ui,sans-serif}
+  .node{cursor:pointer;transition:transform .2s}
+  .node circle{transition:all .25s}
+  .node:hover circle{filter:brightness(1.08)}
+  .node.active circle.halo{opacity:.35}
+  .edge{stroke:#b9cddd;stroke-width:2.5;transition:all .25s}
+  .edge.hl{stroke:var(--teal);stroke-width:4.5}
+  #infoPanel{margin-top:14px;border-radius:16px;padding:18px 20px;background:linear-gradient(135deg,#eef5fa,#fff);border:1px solid var(--line);min-height:150px;transition:background .3s}
+  #infoPanel h4{margin:0 0 6px;font-size:1.15rem}
+  #infoPanel .ex{margin-top:10px;padding:10px 14px;background:#fff;border-radius:12px;border-left:4px solid var(--teal);font-size:.95rem}
+  .hint{font-size:.85rem;color:var(--muted);text-align:center;margin-top:6px}
+  table{width:100%;border-collapse:separate;border-spacing:0;margin-top:14px;font-size:.95rem;overflow:hidden;border-radius:14px;border:1px solid var(--line)}
+  th,td{padding:11px 13px;vertical-align:top;border-bottom:1px solid var(--line);text-align:left}
+  th{background:var(--navy);color:#fff;font-weight:600}
+  th:nth-child(3){background:var(--teal)}
+  tr:last-child td{border-bottom:none}
+  tbody tr:nth-child(even) td{background:#f7fbfd}
+  td:first-child{font-weight:700;color:var(--navy);width:20%}
+  .tablewrap{overflow-x:auto}
+  .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .tab{border:2px solid var(--line);background:#fff;color:var(--navy);padding:10px 16px;border-radius:12px;font-weight:700;cursor:pointer;font-size:.95rem;transition:.2s;font-family:inherit}
+  .tab:hover{border-color:var(--blue)}
+  .tab.active{color:#fff;border-color:transparent}
+  .tab[data-m="env"].active{background:var(--blue)}
+  .tab[data-m="bio"].active{background:var(--coral)}
+  .tab[data-m="gis"].active{background:var(--teal)}
+  .tab[data-m="exp"].active{background:var(--purple)}
+  .method{display:none;margin-top:14px;border-radius:18px;padding:20px;border:1px solid var(--line);animation:fade .35s ease}
+  .method.show{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .method .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:10px}
+  @media(max-width:820px){.method .cols{grid-template-columns:1fr}}
+  .method .col{background:#fff;border-radius:12px;padding:12px 14px;border:1px solid var(--line)}
+  .method .col h5{margin:0 0 4px;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .fbtn{border:none;padding:9px 18px;border-radius:999px;font-weight:700;cursor:pointer;background:#eef5fa;color:var(--navy);font-family:inherit;font-size:.92rem;transition:.2s}
+  .fbtn.active{background:var(--amber);color:#fff;box-shadow:0 4px 12px rgba(232,161,58,.35)}
+  .timeline{position:relative;margin-top:22px;padding-left:34px}
+  .timeline::before{content:"";position:absolute;left:12px;top:4px;bottom:4px;width:4px;border-radius:4px;background:linear-gradient(var(--navy),var(--teal),var(--amber))}
+  .tl{position:relative;margin-bottom:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 16px;transition:opacity .3s,transform .3s}
+  .tl::before{content:"";position:absolute;left:-29px;top:17px;width:14px;height:14px;border-radius:50%;background:#fff;border:4px solid var(--blue)}
+  .tl[data-t="kisi"]::before{border-color:var(--purple)}
+  .tl[data-t="metin"]::before{border-color:var(--amber)}
+  .tl[data-t="kurum"]::before{border-color:var(--teal)}
+  .tl.hide{display:none}
+  .tl .yr{font-weight:800;color:var(--navy);margin-right:8px}
+  .tl .ty{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 9px;border-radius:999px;color:#fff;vertical-align:middle}
+  .tl[data-t="kisi"] .ty{background:var(--purple)}
+  .tl[data-t="metin"] .ty{background:var(--amber)}
+  .tl[data-t="kurum"] .ty{background:var(--teal)}
+  .tl h4{margin:6px 0 4px;font-size:1.02rem}
+  .tl p{margin:2px 0;font-size:.94rem;color:#33475a}
+  .tl .ref{font-size:.82rem;color:var(--muted);font-style:italic}
+  .pill{display:inline-block;font-size:.8rem;padding:2px 10px;border-radius:999px;background:#e9f0f7;color:var(--navy);margin:2px 3px 2px 0;font-weight:600}
+  .riskbar{display:flex;align-items:center;gap:10px;margin:8px 0}
+  .riskbar .lbl{width:170px;font-size:.9rem}
+  .riskbar .bar{flex:1;height:18px;background:#eef2f6;border-radius:9px;overflow:hidden}
+  .riskbar .fill{height:100%;border-radius:9px}
+  .gloss{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+  @media(max-width:820px){.gloss{grid-template-columns:1fr}}
+  .gloss div{background:#f7fbfd;border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:.93rem}
+  .gloss b{color:var(--navy)}
+  footer{text-align:center;color:var(--muted);font-size:.85rem;padding:20px 16px 40px}
+  #topBtn{position:fixed;right:20px;bottom:20px;width:46px;height:46px;border-radius:50%;border:none;background:var(--navy);color:#fff;font-size:1.3rem;cursor:pointer;opacity:0;pointer-events:none;transition:.3s;box-shadow:0 6px 16px rgba(31,78,121,.3)}
+  #topBtn.show{opacity:1;pointer-events:auto}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<header>
+  <div class="wrap">
+    <span class="badge">Halk Sağlığı · Çevre Sağlığı · Eğitsel İnfografik</span>
+    <h1>Maruziyet Bilimi <span>(Exposure Science)</span><br>Kaynak ile hastalık arasındaki kara kutuyu açmak</h1>
+    <p class="lead">Bir kimyasal, toz, gürültü ya da ısı insana <b>ne zaman, hangi yoldan, ne kadar ve ne süreyle</b> ulaşıyor? Maruziyet bilimi bu soruyu ölçülebilir hâle getiren disiplinlerarası alandır. Bu rapor tanımı, kurumsal yapıyı, yöntemleri, öncü isimleri ve halk sağlığına katkıyı altı kartta özetliyor.</p>
+    <div class="formula">Maruziyet &nbsp; E = ∫ C(t) dt &nbsp;·&nbsp; <small>temas sınırındaki konsantrasyonun zaman içindeki toplamı (Ott)</small></div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="İçindekiler">
+  <div class="toc-inner">
+    <a href="#s1"><b>1</b>Nedir?</a>
+    <a href="#s2"><b>2</b>Bilim dalı mı, AD mı?</a>
+    <a href="#s3"><b>3</b>Nasıl çalışır?</a>
+    <a href="#s4"><b>4</b>Öncüler ve metinler</a>
+    <a href="#s5"><b>5</b>Klasik ve yeni yaklaşım</a>
+    <a href="#s6"><b>6</b>Yararlar, sınırlar, adalet</a>
+    <a href="#sozluk"><b>+</b>Sözlük</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ 1 ============ -->
+<section class="card" id="s1">
+  <div class="sec-head"><div class="num">1</div><h2>Maruziyet Bilimi Nedir?<small>Kara kutuyu açmak</small></h2></div>
+
+  <p><b>Maruziyet</b>, bir etkenle (kimyasal, fiziksel, biyolojik ya da psikososyal) bir hedefin (insan, popülasyon, ekosistem) belirli bir zaman aralığında <b>temas sınırında</b> (deri, akciğer epiteli, sindirim kanalı) karşılaşmasıdır. <b>Maruziyet bilimi</b> ise bu temasın doğasını, büyüklüğünü, sıklığını, süresini ve yolunu niceliksel olarak tanımlayan, ölçen ve modelleyen bilimdir. ABD Ulusal Araştırma Konseyi'nin 2012 raporu alanı şöyle çerçeveler: insanların ve ekosistemlerin kimyasal, fiziksel ve biyolojik stres etkenleriyle temasının <i>yapısını</i> anlamak için gereken bilgiyi toplamak ve analiz etmek.</p>
+
+  <div class="grid3">
+    <div class="box navy"><h4>Kapsam</h4>Kaynak ve salım, çevresel ortamda taşınma, insan davranışı (zaman-etkinlik örüntüleri), temas yolu (soluma, sindirim, deri), alınan ve emilen doz.</div>
+    <div class="box teal"><h4>Temel soru</h4>"Kim, neye, nerede, ne zaman, ne kadar ve ne süreyle maruz kaldı?" Toksikoloji "bu doz ne yapar?" diye sorar; maruziyet bilimi "bu doz gerçekte kime ulaştı?" diye sorar.</div>
+    <div class="box amber"><h4>Zincirdeki yeri</h4>Kaynak → <b>Maruziyet → İç doz</b> → Biyolojik etki → Hastalık. Alan, zincirin ilk ve en az ölçülen iki halkasında çalışır.</div>
+  </div>
+
+  <div class="svgwrap">
+    <svg viewBox="0 0 960 400" role="img" aria-label="Klasik kara kutu yaklaşımı ile maruziyet bilimi yaklaşımının karşılaştırması">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5a6b7b"/></marker>
+        <marker id="art" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0E9E8E"/></marker>
+        <linearGradient id="bk" x1="0" x2="1"><stop offset="0" stop-color="#1c2b39"/><stop offset="1" stop-color="#3a4b5c"/></linearGradient>
+      </defs>
+      <!-- Classic -->
+      <text x="20" y="34" font-size="18" font-weight="700" fill="#1F4E79">A · Klasik yaklaşım: "kara kutu"</text>
+      <rect x="40" y="58" width="170" height="74" rx="14" fill="#2E75B6"/>
+      <text x="125" y="92" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">KAYNAK</text>
+      <text x="125" y="114" text-anchor="middle" font-size="12" fill="#e5f0fa">fabrika, yol, ürün</text>
+      <line x1="215" y1="95" x2="355" y2="95" stroke="#5a6b7b" stroke-width="3" marker-end="url(#ar)"/>
+      <rect x="362" y="48" width="236" height="94" rx="14" fill="url(#bk)"/>
+      <text x="480" y="98" text-anchor="middle" font-size="46" font-weight="800" fill="#E8A13A">?</text>
+      <text x="480" y="128" text-anchor="middle" font-size="12" fill="#c8d3dd">"yakında oturuyor" · "kullandı mı?"</text>
+      <line x1="603" y1="95" x2="743" y2="95" stroke="#5a6b7b" stroke-width="3" marker-end="url(#ar)"/>
+      <rect x="750" y="58" width="170" height="74" rx="14" fill="#D4583B"/>
+      <text x="835" y="92" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">HASTALIK</text>
+      <text x="835" y="114" text-anchor="middle" font-size="12" fill="#fde9e3">kayıt, vaka</text>
+      <text x="480" y="170" text-anchor="middle" font-size="13" fill="#5a6b7b">Maruziyet vekil değişkenle (mesafe, meslek unvanı, anket) tahmin edilir → yanlış sınıflandırma ve zayıflamış ilişki</text>
+
+      <line x1="20" y1="196" x2="940" y2="196" stroke="#d8e4ee" stroke-width="2" stroke-dasharray="6 6"/>
+
+      <!-- Exposure science -->
+      <text x="20" y="230" font-size="18" font-weight="700" fill="#0E9E8E">B · Maruziyet bilimi bakışı: kutu açılır</text>
+      <g font-size="14" font-weight="700" fill="#fff" text-anchor="middle">
+        <rect x="20" y="256" width="150" height="70" rx="14" fill="#2E75B6"/><text x="95" y="287">Kaynak</text>
+        <rect x="205" y="256" width="150" height="70" rx="14" fill="#0E9E8E"/><text x="280" y="287">Temas yolu</text>
+        <rect x="390" y="256" width="150" height="70" rx="14" fill="#7E5BC2"/><text x="465" y="287">Biyobelirteç</text>
+        <rect x="575" y="256" width="150" height="70" rx="14" fill="#E8A13A"/><text x="650" y="287">İç doz</text>
+        <rect x="760" y="256" width="180" height="70" rx="14" fill="#D4583B"/><text x="850" y="287">Erken etki → Hastalık</text>
+      </g>
+      <g font-size="11" fill="#fff" text-anchor="middle" opacity=".92">
+        <text x="95" y="308">salım, taşınma</text>
+        <text x="280" y="308">soluma · sindirim · deri</text>
+        <text x="465" y="308">kan · idrar · saç</text>
+        <text x="650" y="308">hedef organdaki miktar</text>
+        <text x="850" y="308">DNA hasarı, inflamasyon</text>
+      </g>
+      <g stroke="#0E9E8E" stroke-width="3" marker-end="url(#art)">
+        <line x1="172" y1="291" x2="200" y2="291"/><line x1="357" y1="291" x2="385" y2="291"/>
+        <line x1="542" y1="291" x2="570" y2="291"/><line x1="727" y1="291" x2="755" y2="291"/>
+      </g>
+      <g font-size="12" fill="#1F4E79" text-anchor="middle">
+        <text x="95" y="352">emisyon envanteri</text>
+        <text x="280" y="352">sensör, zaman-etkinlik günlüğü</text>
+        <text x="465" y="352">biyomonitörizasyon</text>
+        <text x="650" y="352">PBPK modeli</text>
+        <text x="850" y="352">epidemiyoloji, klinik</text>
+      </g>
+      <text x="480" y="386" text-anchor="middle" font-size="13" fill="#5a6b7b">Her halka ölçülür ya da modellenir → kişiye özgü, zamana bağlı, niceliksel maruziyet</text>
+    </svg>
+  </div>
+
+  <h3>Yanlış sınıflandırma yanlılığını nasıl azaltır?</h3>
+  <p>Epidemiyolojide maruziyet kaba bir vekil değişkenle belirlenirse (ör. "fabrikaya 2 km'den yakın oturanlar maruz" denirse), gerçekte maruz kalmayanlar maruz, maruz kalanlar da maruz değil grubuna düşer. Bu hata hasta ve sağlam gruplarda benzer oranda yapılırsa (<b>farklılaşmayan yanlış sınıflandırma</b>) gerçek ilişki genellikle <b>sıfıra doğru zayıflar</b>; zararlı bir etken "güvenli" görünebilir. Hata gruplar arasında farklıysa (ör. kanser hastalarının geçmiş pudra kullanımını daha iyi hatırlaması, yani <b>hatırlama yanlılığı</b>) ilişki her iki yönde de çarpılabilir.</p>
+  <div class="grid2">
+    <div class="box coral"><h4>Sorun</h4>Ekolojik veya anket temelli ölçüm, kişiler arası değişkenliği siler, zamanlamayı kaçırır, hatırlamaya dayanır.</div>
+    <div class="box teal"><h4>Maruziyet biliminin yanıtı</h4>Kişisel örnekleme, biyobelirteç, yinelenen ölçüm ve doğrulanmış modellerle bireysel ve zamana bağlı maruziyet kestirilir; ölçüm hatası ayrıca nicelendirilip düzeltilebilir.</div>
+  </div>
+
+  <div class="case"><span class="tag">Vaka · Talk pudrası</span>
+    <p>Talk ile yumurtalık kanseri ilişkisini inceleyen çalışmaların büyük kısmı vaka-kontrol tasarımında ve geçmişteki kullanımı <b>soruyla</b> ölçüyor. Kullanım sıklığı, süresi, uygulanan bölge ve ürünün asbestle kirli olup olmadığı genellikle bilinmiyor. Bu belirsizlik ilişkinin büyüklüğü üzerindeki tartışmanın önemli bir kaynağı. Maruziyet bilimi burada iki ayrı soruyu ayırır: kirletici (asbest, IARC Grup 1) ve maddenin kendisi (talk, IARC Grup 2A, 2024).</p>
+  </div>
+
+  <div class="summary"><strong>Özet:</strong> Maruziyet bilimi, kaynakla hastalık arasındaki "?" kutusunu ölçülebilir halkalara ayırır. İyi ölçülmüş maruziyet olmadan doz-yanıt ilişkisi, risk değerlendirmesi ve hedefli müdahale kurulamaz.</div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="card" id="s2">
+  <div class="sec-head"><div class="num" style="background:var(--teal)">2</div><h2>Bilim Dalı mı, Anabilim Dalı mı?<small>Kurumsal yapılanma</small></h2></div>
+
+  <p>Kısa cevap: Maruziyet bilimi uluslararası alanda <b>kendi derneği, dergisi ve yüksek lisans/doktora programları olan</b>, kendi kimliği oturmuş, disiplinlerarası bir bilim alanıdır. Türkiye'de ise <b>ayrı bir anabilim dalı ya da bilim dalı olarak örgütlenmemiştir</b>; konu Halk Sağlığı başta olmak üzere birkaç birime dağılmış hâlde çalışılır.</p>
+
+  <div class="svgwrap">
+    <svg id="net" viewBox="0 0 800 470" role="img" aria-label="Maruziyet biliminin ilişkili olduğu disiplinler ağ diyagramı">
+      <g id="edges"></g>
+      <g id="nodes"></g>
+    </svg>
+  </div>
+  <div class="hint">Bir düğüme tıklayın; o disiplinin katkısı ve ortak çalışma örneği aşağıda görünür.</div>
+  <div id="infoPanel"></div>
+
+  <h3>Karşılaştırmalı yapı</h3>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Boyut</th><th>Uluslararası (ABD/Avrupa)</th><th>Türkiye (YÖK / Tıp Fakültesi)</th></tr></thead>
+    <tbody>
+      <tr><td>Kurumsal kimlik</td><td>Bağımsız meslek topluluğu: <b>ISES</b> (1989'da <i>International Society of Exposure Analysis</i> adıyla kuruldu, sonra adı <i>Exposure Science</i> olarak değişti).</td><td>Ayrı bir dernek ya da kadro birimi yok. Konu Halk Sağlığı AD'de, çevre ve iş sağlığı alanında çalışan öğretim üyelerince yürütülür.</td></tr>
+      <tr><td>Yayın organı</td><td><i>Journal of Exposure Science &amp; Environmental Epidemiology</i> (JESEE; 1991'de <i>J. Exposure Analysis &amp; Env. Epidemiology</i> olarak başladı).</td><td>Çalışmalar halk sağlığı, toksikoloji ve çevre mühendisliği dergilerinde dağınık olarak yayımlanır.</td></tr>
+      <tr><td>Akademik birim</td><td>Halk sağlığı okullarında çevre sağlığı bölümleri içinde maruziyet bilimi programları ve laboratuvarları (ör. Rutgers, Harvard, Berkeley, Emory, Imperial College).</td><td><b>Halk Sağlığı AD</b> (çevre sağlığı, iş sağlığı konuları); <b>İş ve Meslek Hastalıkları</b>; <b>Toksikoloji</b> (eczacılık fakülteleri, sağlık bilimleri enstitüleri); sağlık bilimleri fakültelerinde <b>Çevre Sağlığı</b> programları; mühendislikte <b>Çevre Mühendisliği</b>.</td></tr>
+      <tr><td>Eğitim</td><td>Maruziyet bilimi yüksek lisans/doktora hatları, yaz okulları, ISES eğitim komiteleri.</td><td>Halk sağlığı uzmanlık ve doktora müfredatında "çevre sağlığı" başlığı altında birkaç ders saati; özgün program yok.</td></tr>
+      <tr><td>Politika bağı</td><td>EPA, NIEHS, CDC (NHANES biyomonitörizasyon), Avrupa'da HBM4EU ve PARC gibi kalıcı programlar.</td><td>Ulusal ve sürekli bir biyomonitörizasyon programı yok; ölçümler proje bazlı. Kozmetik ürünlerde bildirim sistemi var, piyasa sonrası maruziyet izlemi yok.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="box purple"><h4>Neden "disiplinlerarası"?</h4>Kimya, fizik, mühendislik, epidemiyoloji, toksikoloji, istatistik ve davranış bilimlerinin yöntemlerini tek bir soru etrafında birleştirir. Yöntemi ortak, sorusu özgündür: temas.</div>
+    <div class="box amber"><h4>Türkiye için çıkarım</h4>En doğal yuva <b>Halk Sağlığı AD</b>'dir. Çevre sağlığı ya da iş sağlığı bilim dalı içinde "maruziyet bilimi" adıyla laboratuvar ve ders hattı kurmak gerçekçi bir ilk adımdır.</div>
+  </div>
+
+  <div class="summary"><strong>Özet:</strong> Dünyada kendi derneği ve dergisi olan, olgunlaşmış bir <b>bilim alanı</b>. Türkiye'de ise henüz bağımsız bir anabilim dalı ya da bilim dalı değil; Halk Sağlığı AD çatısı altında dağınık biçimde yürüyor.</div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="card" id="s3">
+  <div class="sec-head"><div class="num" style="background:var(--purple)">3</div><h2>Sağlık Alanında Nasıl Çalışır?<small>Ölçüm araçları ve yöntemler</small></h2></div>
+
+  <p>Maruziyet iki uçtan ölçülebilir: <b>dışarıdan</b> (ortamdaki konsantrasyon × temas süresi) ya da <b>içeriden</b> (vücutta kalan iz). Modeller iki ucu birleştirir. Ekzopozom ise bütün bunları yaşam boyu ve çoklu etken ölçeğine taşır.</p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-m="env" role="tab">🌫️ Çevresel İzleme</button>
+    <button class="tab" data-m="bio" role="tab">🧪 Biyomonitörizasyon</button>
+    <button class="tab" data-m="gis" role="tab">🗺️ Mekânsal / GIS ve PBPK Modelleme</button>
+    <button class="tab" data-m="exp" role="tab">🧬 Ekzopozom (Omics)</button>
+  </div>
+
+  <div class="method show" id="m-env" style="background:#eaf2fa">
+    <h3 style="margin-top:0;color:var(--blue)">Çevresel İzleme: dış ortamı ve kişisel solunum bölgesini ölçmek</h3>
+    <p>Hava, su, toprak, toz ve gıdadan örnek alınır. Sabit istasyonlar bölgesel düzeyi, <b>kişisel örnekleyiciler</b> ve <b>giyilebilir sensörler</b> (PM<sub>2.5</sub>, NO<sub>2</sub>, gürültü, sıcaklık, GPS) bireyin gerçekte soluduğunu ölçer.</p>
+    <div class="cols">
+      <div class="col"><h5 style="color:var(--blue)">Nasıl çalışır?</h5>Pasif tüpler, pompalı filtreler, düşük maliyetli optik sensörler; ölçüm zaman-etkinlik günlüğüyle eşleştirilir (ev, iş, yol).</div>
+      <div class="col"><h5 style="color:var(--teal)">Avantajı</h5>Kaynağa ve ortama doğrudan bağlanır, bu yüzden müdahaleyi yönlendirir (havalandırma, filtre, trafik düzenlemesi). Gerçek zamanlı veri sağlar.</div>
+      <div class="col"><h5 style="color:var(--coral)">Saha örneği</h5>Kuaför salonunda vardiya boyunca solunum bölgesinden toz ve talk partikülü ölçümü; okul çevresinde trafik kaynaklı NO<sub>2</sub> haritası.</div>
+    </div>
+  </div>
+
+  <div class="method" id="m-bio" style="background:#fbece8">
+    <h3 style="margin-top:0;color:var(--coral)">Biyomonitörizasyon: vücudun taşıdığı yükü ölçmek</h3>
+    <p>Kan, idrar, saç, tırnak, anne sütü, nefes ya da diş gibi biyolojik örneklerde etkenin kendisi, metaboliti veya etkisi (DNA katımları, protein katımları) ölçülür. Bütün yollardan gelen toplam iç dozu yansıtır.</p>
+    <div class="cols">
+      <div class="col"><h5 style="color:var(--blue)">Nasıl çalışır?</h5>Kütle spektrometrisi (LC-MS/MS, ICP-MS). Yarı ömür önemlidir: idrarda ftalatlar günleri, kanda kurşun haftaları-ayları, saçta cıva ayları yansıtır.</div>
+      <div class="col"><h5 style="color:var(--teal)">Avantajı</h5>Soluma, sindirim ve deri yollarını tek bir değerde toplar; bireysel farkları (metabolizma, davranış) içerir. Referans değerlerle karşılaştırılabilir.</div>
+      <div class="col"><h5 style="color:var(--coral)">Saha örneği</h5>ABD'de CDC'nin NHANES programı nüfusta yüzlerce kimyasalı izler. Kurşun boyalı oyuncak ya da kaplara maruz kalan çocuklarda kan kurşun taraması da bu yöntemle yapılır.</div>
+    </div>
+  </div>
+
+  <div class="method" id="m-gis" style="background:#e8f7f5">
+    <h3 style="margin-top:0;color:var(--teal)">Mekânsal / GIS ve PBPK Modelleme: ölçülemeyeni kestirmek</h3>
+    <p><b>GIS ve arazi kullanımı regresyonu (LUR)</b> ölçüm noktalarını trafik, sanayi ve yeşil alan verileriyle birleştirerek her adres için maruziyet kestirir. Uydu verisi, dağılım modelleri ve makine öğrenmesi de bu gruptadır. <b>PBPK (fizyoloji temelli farmakokinetik)</b> modeller dış dozu organ düzeyindeki iç doza çevirir ya da biyobelirteçten geriye doğru dış maruziyeti hesaplar.</p>
+    <div class="cols">
+      <div class="col"><h5 style="color:var(--blue)">Nasıl çalışır?</h5>Mekânsal enterpolasyon, LUR, dağılım (Gauss) modelleri, uydu AOD verisi; PBPK'da organ hacmi, kan akımı ve metabolizma parametreleri.</div>
+      <div class="col"><h5 style="color:var(--teal)">Avantajı</h5>Milyonlarca kişiye ve geçmiş yıllara ucuz biçimde uygulanır. Kohortlarda yaşam boyu maruziyet geçmişi oluşturur; senaryo (ya şöyle olsaydı) analizine olanak verir.</div>
+      <div class="col"><h5 style="color:var(--coral)">Saha örneği</h5>Talk ve asbest yataklarına yakın yerleşimlerde mekânsal kanser kümelenmesi analizi; deriye uygulanan bir kozmetik maddenin PBPK ile sistemik doza çevrilmesi.</div>
+    </div>
+  </div>
+
+  <div class="method" id="m-exp" style="background:#f2eefb">
+    <h3 style="margin-top:0;color:var(--purple)">Ekzopozom: genomun çevresel karşılığı</h3>
+    <p>Wild'ın 2005'te önerdiği kavram: <b>gebe kalmadan ölüme kadar</b> bütün çevresel maruziyetlerin toplamı. Üç alanı vardır: genel dış ortam (kentleşme, iklim, sosyoekonomik durum), özgül dış ortam (kirleticiler, beslenme, tütün, meslek), iç ortam (metabolizma, mikrobiyota, inflamasyon, oksidatif stres).</p>
+    <div class="cols">
+      <div class="col"><h5 style="color:var(--blue)">Nasıl çalışır?</h5>Hedefsiz metabolomik, addüktomik, proteomik ve epigenomik ile sensör ve GIS verisinin birleştirilmesi. Ekzopozom genelinde ilişkilendirme çalışmaları (ExWAS).</div>
+      <div class="col"><h5 style="color:var(--teal)">Avantajı</h5>"Tek kirletici, tek hastalık" yerine <b>karışımları</b> ve kritik yaşam dönemlerini inceler; hipotez üretir. Rappaport'un "yukarıdan aşağı" (kandan başlayan) yaklaşımı bilinmeyen etkenleri yakalayabilir.</div>
+      <div class="col"><h5 style="color:var(--coral)">Saha örneği</h5>Avrupa'da HELIX projesi 6 ülkede anne-çocuk kohortlarında gebelik ve çocukluk ekzopozomunu çocuk sağlığıyla ilişkilendirdi.</div>
+    </div>
+  </div>
+
+  <div class="summary"><strong>Özet:</strong> Çevresel izleme <i>nerede</i> sorusunu, biyomonitörizasyon <i>vücutta ne kadar</i> sorusunu, modelleme <i>ölçülemeyen yer ve zaman için ne kadar</i> sorusunu yanıtlar. Ekzopozom üçünü yaşam boyu ölçekte birleştirir.</div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="card" id="s4">
+  <div class="sec-head"><div class="num" style="background:var(--amber)">4</div><h2>Öncü İsimler ve Kurucu Metinler<small>Zaman tüneli</small></h2></div>
+
+  <div class="filters">
+    <button class="fbtn active" data-f="all">Tümü</button>
+    <button class="fbtn" data-f="kisi">Kurucu İsimler</button>
+    <button class="fbtn" data-f="metin">Temel Metinler</button>
+  </div>
+
+  <div class="timeline" id="timeline">
+    <div class="tl" data-t="kisi">
+      <span class="yr">1982–1985</span><span class="ty">Kurucu isim</span>
+      <h4>Wayne R. Ott: "Toplam İnsan Maruziyeti"</h4>
+      <p>Maruziyeti "bir etkenle insanın bir temas sınırında karşılaşması" olarak tanımlayıp dış konsantrasyondan ve dozdan ayırdı. Toplam insan maruziyeti kavramıyla insanların zamanının çoğunu geçirdiği iç ortamların ve kişisel ölçümün önemini gösterdi. EPA'nın TEAM çalışmaları (Lance Wallace ve ekibi) kişisel maruziyetin dış istasyon değerlerinden çok farklı olabildiğini ortaya koydu.</p>
+      <p class="ref">Ott WR. Concepts of human exposure to air pollution. Environment International, 1982 · Ott WR. Total human exposure. Environ Sci Technol, 1985</p>
+    </div>
+    <div class="tl" data-t="kisi">
+      <span class="yr">1987</span><span class="ty">Kurucu isim</span>
+      <h4>Kirk R. Smith: iç ortam biyokütle maruziyeti</h4>
+      <p>Odun, tezek ve kömürle yemek pişirmenin yarattığı ev içi hava kirliliğini küresel bir halk sağlığı sorunu olarak gösterdi. Guatemala'daki RESPIRE randomize çalışması (bacalı soba) maruziyet azaltımının sağlık etkisini sınadı. Çalışmaları Küresel Hastalık Yükü hesaplarına "ev içi hava kirliliği" risk etkenini kazandırdı. (1946–2020)</p>
+      <p class="ref">Smith KR. Biofuels, Air Pollution, and Health: A Global Review. Plenum, 1987</p>
+    </div>
+    <div class="tl" data-t="kurum">
+      <span class="yr">1989</span><span class="ty">Kurum</span>
+      <h4>Uluslararası Maruziyet Analizi Derneği (ISEA) kuruldu</h4>
+      <p>Alanın bağımsız meslek topluluğu. Sonradan adı <b>International Society of Exposure Science (ISES)</b> oldu.</p>
+    </div>
+    <div class="tl" data-t="kisi">
+      <span class="yr">1990</span><span class="ty">Kurucu isim</span>
+      <h4>Paul J. Lioy: maruziyet analizi ve kaynaktan doza süreklilik</h4>
+      <p>Kaynaktan sağlık etkisine uzanan sürekliliği tanımladı. 11 Eylül sonrası Dünya Ticaret Merkezi tozunu analiz eden çalışmalarıyla ve alanın tarihini yazan makaleleriyle tanınır. Rutgers'ta maruziyet bilimi kurumsallaşmasına öncülük etti. (1947–2015)</p>
+      <p class="ref">Lioy PJ. Assessing total human exposure to contaminants. Environ Sci Technol, 1990</p>
+    </div>
+    <div class="tl" data-t="metin">
+      <span class="yr">1991</span><span class="ty">Temel metin</span>
+      <h4>NAS/NRC Raporu: <i>Human Exposure Assessment for Airborne Pollutants</i></h4>
+      <p>ABD Ulusal Bilimler Akademisi'nin raporu, maruziyet değerlendirmesini risk değerlendirmesinin ayrı ve zorunlu bir bileşeni olarak tanımladı; terminoloji, kişisel izleme ve model doğrulaması için çerçeve çizdi.</p>
+      <p class="ref">National Research Council. Washington DC: National Academy Press, 1991</p>
+    </div>
+    <div class="tl" data-t="kurum">
+      <span class="yr">1991</span><span class="ty">Kurum</span>
+      <h4>Alanın dergisi yayına başladı</h4>
+      <p><i>Journal of Exposure Analysis and Environmental Epidemiology</i>; bugünkü adıyla <i>Journal of Exposure Science &amp; Environmental Epidemiology</i>.</p>
+    </div>
+    <div class="tl" data-t="metin">
+      <span class="yr">2005</span><span class="ty">Temel metin</span>
+      <h4>Christopher P. Wild: "Ekzopozom" makalesi</h4>
+      <p>İnsan Genom Projesi'nden sonra kronik hastalık riskini açıklamada maruziyet ölçümünün çok geride kaldığını savundu. Genomun tamamlayıcısı olarak yaşam boyu maruziyetlerin toplamını, yani ekzopozomu önerdi. Wild daha sonra IARC direktörlüğü yaptı (2009–2018).</p>
+      <p class="ref">Wild CP. Complementing the genome with an "exposome". Cancer Epidemiol Biomarkers Prev, 2005;14:1847–50</p>
+    </div>
+    <div class="tl" data-t="kisi">
+      <span class="yr">2010</span><span class="ty">Kurucu isim</span>
+      <h4>Stephen M. Rappaport: ekzopozomu ölçülebilir kılmak</h4>
+      <p>Maruziyeti "vücudun iç kimyasal ortamı" olarak yeniden tanımladı; kan örneğinden başlayan yukarıdan aşağı yaklaşımı ve addüktomik/metabolomik araçları geliştirdi. Mesleki maruziyetin istatistiksel modellemesinde de öncüdür (UC Berkeley).</p>
+      <p class="ref">Rappaport SM, Smith MT. Environment and disease risks. Science, 2010;330:460–1</p>
+    </div>
+    <div class="tl" data-t="metin">
+      <span class="yr">2010</span><span class="ty">Temel metin</span>
+      <h4>Lioy: <i>Exposure Science: A View of the Past and Milestones for the Future</i></h4>
+      <p>Alanın tarihsel gelişimini (radyasyon ve iş hijyeninden toplam insan maruziyetine) ve geleceğin gereksinimlerini özetleyen kurucu derleme.</p>
+      <p class="ref">Lioy PJ. Environ Health Perspect, 2010;118(8):1081–90</p>
+    </div>
+    <div class="tl" data-t="metin">
+      <span class="yr">2012</span><span class="ty">Temel metin</span>
+      <h4>NRC Raporu: <i>Exposure Science in the 21st Century: A Vision and a Strategy</i></h4>
+      <p>Alanı resmî olarak "maruziyet bilimi" adıyla tanımladı. Kaynaktan sonuca kavramsal çerçeve, insanla birlikte ekosistem maruziyeti, sensör, uzaktan algılama ve biyobelirteç teknolojileri ve kamu katılımı için yol haritası çizdi.</p>
+      <p class="ref">National Research Council. Washington DC: National Academies Press, 2012</p>
+    </div>
+    <div class="tl" data-t="metin">
+      <span class="yr">2012</span><span class="ty">Temel metin</span>
+      <h4>Wild: <i>The exposome: from concept to utility</i></h4>
+      <p>Ekzopozomun genel dış, özgül dış ve iç alanlardan oluşan üçlü yapısını tanımladı.</p>
+      <p class="ref">Wild CP. Int J Epidemiol, 2012;41:24–32</p>
+    </div>
+    <div class="tl" data-t="kurum">
+      <span class="yr">2024</span><span class="ty">Güncel</span>
+      <h4>IARC talkı Grup 2A'ya yükseltti</h4>
+      <p>Asbestsiz talk "insanlar için muhtemelen kanserojen" sınıfına alındı. Karar, insan çalışmalarında maruziyet ölçümünün yetersizliğine ve olası yanlılığa dikkat çekti; bu da maruziyet biliminin gündemde neden kaldığını gösteriyor.</p>
+    </div>
+  </div>
+
+  <div class="summary"><strong>Özet:</strong> Ott kavramı tanımladı, Lioy alanı kurumsallaştırdı, Smith küresel ölçeğe taşıdı, Wild ve Rappaport ekzopozomla geleceğini çizdi. 1991 NAS ve 2012 NRC raporları alanın "anayasası" sayılır.</div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="card" id="s5">
+  <div class="sec-head"><div class="num" style="background:var(--coral)">5</div><h2>Klasik Epidemiyoloji ve Maruziyet Bilimi<small>Soruyu değiştirmek</small></h2></div>
+
+  <p>Klasik soru: <i>"X'e maruz kalanlarda hastalık daha sık mı?"</i><br>Maruziyet bilimi sorusu: <i>"Kim, X'e hangi yoldan, ne kadar, ne zaman ve ne süreyle maruz kaldı; bu doz hastalıkla nasıl bir eğri çiziyor?"</i></p>
+
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Boyut</th><th>Geleneksel (anket / ekolojik)</th><th>Maruziyet bilimi yaklaşımı</th></tr></thead>
+    <tbody>
+      <tr><td>Maruziyet ölçüsü</td><td>Var/yok, "hiç kullandınız mı?", adres, meslek unvanı</td><td>Sürekli nicelik: konsantrasyon × süre × sıklık, biyobelirteç düzeyi</td></tr>
+      <tr><td>Analiz birimi</td><td>Grup, bölge (ekolojik yanılgı riski)</td><td>Birey, gerektiğinde birey içinde gün ve saat</td></tr>
+      <tr><td>Zaman boyutu</td><td>Tek nokta, geriye dönük hatırlama</td><td>Yinelenen ölçüm, kritik pencereler (gebelik, erken çocukluk)</td></tr>
+      <tr><td>Temas yolu</td><td>Genellikle belirsiz</td><td>Soluma, sindirim ve deri ayrı ayrı nicelendirilir</td></tr>
+      <tr><td>Yanlılık</td><td>Hatırlama yanlılığı, farklılaşmayan yanlış sınıflandırma (ilişki zayıflar)</td><td>Ölçüm hatası nicelendirilir ve düzeltilir (doğrulama alt örneklemi, regresyon kalibrasyonu)</td></tr>
+      <tr><td>Doz-yanıt</td><td>Kaba kategoriler</td><td>Eşik, doğrusal ya da doğrusal olmayan eğri kestirilebilir</td></tr>
+      <tr><td>Karışımlar</td><td>Tek etken</td><td>Çoklu ve eş zamanlı etkenler (ekzopozom, karışım modelleri)</td></tr>
+      <tr><td>Politika çıktısı</td><td>"İlişki var/yok"</td><td>Kaynağa özgü, ölçülebilir hedefli müdahale ve sınır değer</td></tr>
+      <tr><td>Talk örneği</td><td>"Genital bölgeye hiç pudra kullandınız mı?"</td><td>Ürün bileşimi (asbest analizi), uygulama sıklığı ve süresi, solunum bölgesi partikül ölçümü, doku/partikül analizi</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Göreli risk ile mutlak risk farkı (yazıdaki örnek)</h3>
+  <div class="riskbar"><span class="lbl">Genel kadın nüfusu</span><div class="bar"><div class="fill" style="width:44%;background:var(--blue)"></div></div><b>1 / 91</b></div>
+  <div class="riskbar"><span class="lbl">Düzenli genital pudra (~%30↑)</span><div class="bar"><div class="fill" style="width:57%;background:var(--coral)"></div></div><b>≈ 1 / 70</b></div>
+  <p style="font-size:.9rem;color:var(--muted)">Yaşam boyu yumurtalık kanseri riski (ACS). Göreli %30'luk artış mutlak riskte yaklaşık 1,1 → 1,4 puanlık bir farka karşılık gelir. Maruziyet iyi ölçülmediğinde bu küçük farkın gerçek mi yoksa yanlılık mı olduğunu ayırt etmek güçleşir.</p>
+
+  <div class="summary"><strong>Özet:</strong> Maruziyet bilimi, epidemiyolojinin "var/yok" sorusunu "ne kadar, nasıl, ne zaman" sorusuna çevirir. Böylece daha güçlü nedensellik çıkarımı ve doğrudan uygulanabilir politika sağlar.</div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="card" id="s6">
+  <div class="sec-head"><div class="num" style="background:var(--navy)">6</div><h2>Halk Sağlığı İçin Yararlar, Sınırlar ve Çevresel Adalet</h2></div>
+
+  <div class="grid2">
+    <div class="box teal"><h4>✅ Fırsatlar</h4>
+      <ul>
+        <li><b>Düşük doz, kronik maruziyetler:</b> klinik bulgu vermeyen ama nüfus düzeyinde önemli etkileri (endokrin bozucular, ince partikül) görünür kılar.</li>
+        <li><b>Hassas gruplar:</b> gebe (plasenta geçişi), bebek ve çocuk (kilo başına daha çok soluma ve sindirim, el-ağız davranışı, gelişim pencereleri), yaşlı, işçi.</li>
+        <li><b>Önleme:</b> kaynağı ve yolu gösterdiği için müdahale "hastayı tedavi"den "maruziyeti kes"e kayar.</li>
+        <li><b>Risk değerlendirmesi ve mevzuat:</b> sınır değer, ürün güvenliği, piyasa sonrası izlem (kozmetovijilans) için kanıt üretir.</li>
+        <li><b>Erken uyarı:</b> biyomonitörizasyon eğilimleri, hastalık ortaya çıkmadan önce sorunlu kimyasalları işaret eder.</li>
+      </ul>
+    </div>
+    <div class="box coral"><h4>⚠️ Sınırlar</h4>
+      <ul>
+        <li><b>Yüksek maliyet:</b> kütle spektrometrisi, omik analizler, büyük kohortlar.</li>
+        <li><b>Teknik altyapı:</b> akredite laboratuvar, kalibrasyon, kalite güvencesi, uzman insan gücü.</li>
+        <li><b>Veri karmaşıklığı:</b> yüksek boyutlu veri, çoklu karşılaştırma, ilişkili maruziyetler, yanlış pozitif riski.</li>
+        <li><b>Zaman uyumsuzluğu:</b> kısa yarı ömürlü biyobelirteçler on yıllar önceki maruziyeti göstermez.</li>
+        <li><b>Etik ve mahremiyet:</b> GPS ve sensör verisi, biyobankalar, sonuçların katılımcıya bildirilmesi.</li>
+        <li><b>Nedensellik:</b> iyi ölçüm tek başına karıştırıcıları ortadan kaldırmaz.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Çevresel adalet: maruziyet eşit dağılmaz</h3>
+  <div class="grid3">
+    <div class="box amber"><h4>Kim daha çok maruz kalıyor?</h4>Sanayi ve otoyol çevresindeki düşük gelirli mahalleler, madencilik ve işleme işçileri, kuaförler ve temizlik çalışanları, biyokütleyle pişirim yapan kırsal haneler.</div>
+    <div class="box purple"><h4>Maruziyet bilimi ne sağlar?</h4>Eşitsizliği <b>ölçerek görünür</b> kılar: mahalle düzeyinde haritalar, işçilerde biyobelirteç, katılımcı (yurttaş bilimi) sensör ağları.</div>
+    <div class="box navy"><h4>Politika ilkesi</h4>Faydası düşük, ikamesi kolay ve en kırılgan grubu etkileyen maruziyetlerde kanıt tamamlanmadan da <b>ihtiyat ilkesi</b> uygulanabilir.</div>
+  </div>
+
+  <div class="case"><span class="tag">Vaka · Talk pudrası için maruziyet bilimi gündemi</span>
+    <ul>
+      <li><b>Ürün düzeyi:</b> seri bazlı, duyarlılığı belirtilmiş yöntemlerle asbest analizi (TEM/XRD/PLM) ve sonuçların kamuya açıklanması.</li>
+      <li><b>Kişi düzeyi:</b> bebek bakımında ve kuaförlerde solunum bölgesi partikül ölçümü; kullanım sıklığını ve bölgesini kaydeden kohortlar.</li>
+      <li><b>Nüfus düzeyi:</b> Eskişehir gibi talk ve asbest jeolojisinin örtüştüğü bölgelerde maden ve işleme işçilerinin maruziyet takibi.</li>
+      <li><b>Mevzuat:</b> bildirim esaslı kozmetik sistemine piyasa sonrası maruziyet izlemi (kozmetovijilans) eklenmesi; e-ticaret denetim protokolü.</li>
+    </ul>
+  </div>
+
+  <div class="summary"><strong>Özet:</strong> Maruziyet bilimi halk sağlığına "kime, ne kadar" bilgisini kazandırır; özellikle görünmez, düşük doz ve eşitsiz dağılan riskler için vazgeçilmezdir. Bedeli yüksektir, bu yüzden en kırılgan gruplar ve ikamesi kolay ürünler öncelikli hedef olmalıdır.</div>
+</section>
+
+<!-- ============ Sözlük ============ -->
+<section class="card" id="sozluk" style="border-top-color:var(--teal)">
+  <div class="sec-head"><div class="num" style="background:var(--teal)">+</div><h2>Mini Sözlük<small>Kavramı sözlüğe eklemek için</small></h2></div>
+  <div class="gloss">
+    <div><b>Maruziyet (exposure):</b> Etkenle hedefin, temas sınırında, belirli bir sürede karşılaşması.</div>
+    <div><b>Doz (dose):</b> Temas sınırını geçen miktar (alınan doz → emilen doz → hedef organ dozu).</div>
+    <div><b>Maruziyet yolu (route):</b> Soluma, sindirim, deri (dermal) ve plasenta geçişi.</div>
+    <div><b>Maruziyet yolağı (pathway):</b> Kaynaktan bireye fiziksel güzergâh (ör. maden → pudra → hava → akciğer).</div>
+    <div><b>Biyobelirteç:</b> Maruziyetin, etkinin ya da duyarlılığın biyolojik örnekte ölçülen göstergesi.</div>
+    <div><b>Biyomonitörizasyon:</b> Biyolojik örneklerde kimyasal veya metabolitlerinin sistematik ölçümü.</div>
+    <div><b>Ekzopozom (exposome):</b> Gebe kalmadan ölüme kadar bütün çevresel maruziyetlerin toplamı (Wild, 2005).</div>
+    <div><b>PBPK:</b> Fizyoloji temelli farmakokinetik model; dış dozu organ dozuna çevirir.</div>
+    <div><b>Yanlış sınıflandırma:</b> Bireyin maruziyet kategorisine hatalı yerleştirilmesi; farklılaşmayan türü ilişkiyi zayıflatır.</div>
+    <div><b>Kozmetovijilans:</b> Kozmetik ürünlerin piyasa sonrası güvenlilik izlemi.</div>
+    <div><b>Tehlike ve risk:</b> Tehlike, zarar verme kapasitesidir (IARC bunu sınıflar); risk, tehlike ile maruziyetin birleşimidir.</div>
+    <div><b>ISES:</b> International Society of Exposure Science; alanın uluslararası derneği.</div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Maruziyet Bilimi · Eğitsel görsel rapor · Temel kaynaklar: NRC 1991 ve 2012 raporları; Ott 1982/1985; Lioy 1990/2010; Smith 1987; Wild 2005/2012; Rappaport ve Smith 2010; IARC 2024 (talk); Uçar A., Fikir Turu, 2 Eylül 2026.
+</footer>
+
+<button id="topBtn" aria-label="Başa dön">↑</button>
+
+<script>
+(function(){
+  /* ---------- Okuma ilerleme çubuğu ---------- */
+  var bar=document.getElementById('progress'), topBtn=document.getElementById('topBtn');
+  function onScroll(){
+    var h=document.documentElement, max=h.scrollHeight-h.clientHeight;
+    var p=max>0?(h.scrollTop||document.body.scrollTop)/max*100:0;
+    bar.style.width=p+'%';
+    topBtn.classList.toggle('show',(h.scrollTop||document.body.scrollTop)>500);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+
+  /* ---------- Bölüm 2: Ağ diyagramı ---------- */
+  var NS='http://www.w3.org/2000/svg';
+  var cx=400, cy=235, R=175;
+  var data={
+    es:{label:['Maruziyet','Bilimi'],color:'#1F4E79',
+      title:'Maruziyet Bilimi (merkez)',
+      text:'Bütün disiplinleri "temas" sorusu etrafında birleştirir: kaynak, yol, miktar, süre ve zamanlama. Kendi kavramlarını (toplam insan maruziyeti, ekzopozom), ölçüm standartlarını ve modellerini geliştirir.',
+      ex:'Ortak proje: Bir kozmetik ürün için kaynaktan doza tam zincir. Ürün analizi (kimya), kullanım davranışı (anket ve sensör), iç doz (PBPK) ve sağlık sonucu (epidemiyoloji) tek bir çalışmada birleşir.'},
+    hs:{label:['Halk','Sağlığı'],color:'#0E9E8E',
+      title:'Halk Sağlığı',
+      text:'Soruyu nüfus ölçeğinde sorar ve önceliklendirir: hangi maruziyet, hangi grupta, ne kadar hastalık yükü yaratıyor? Önleme politikalarına ve çevresel adalet tartışmasına taşır.',
+      ex:'Ortak çalışma örneği: Ulusal biyomonitörizasyon programının tasarımı, hassas gruplar için örnekleme ve sonuçların sınır değer ve mevzuat önerisine dönüştürülmesi.'},
+    ep:{label:['Epidemiyoloji'],color:'#2E75B6',
+      title:'Epidemiyoloji',
+      text:'Maruziyet-sonuç ilişkisini kohort ve vaka-kontrol tasarımlarıyla sınar. Maruziyet biliminden iyi ölçülmüş maruziyet alır, karşılığında maruziyet ölçümünün sağlık açısından anlamını verir. Ölçüm hatası düzeltme yöntemleri ortak alanıdır.',
+      ex:'Ortak çalışma örneği: Yumurtalık kanseri kohortunda anket yerine yinelenen kullanım kaydı ve ürün analizi ile talk maruziyetinin sınıflandırılması, hatırlama yanlılığının azaltılması.'},
+    tx:{label:['Toksikoloji'],color:'#D4583B',
+      title:'Toksikoloji',
+      text:'Doz-yanıt ilişkisini, etki mekanizmasını ve hayvan ile in vitro verisini sağlar. Maruziyet bilimi ise bu dozların gerçek yaşamda ne düzeyde görüldüğünü söyler. İkisi birlikte risk değerlendirmesinin iki ayağıdır.',
+      ex:'Ortak çalışma örneği: Talk partiküllerinin over dokusunda inflamasyon yaratan dozunun deneysel olarak belirlenmesi ve bunun gerçek kullanımdaki tahmini dozla karşılaştırılması.'},
+    em:{label:['Çevre','Mühendisliği'],color:'#E8A13A',
+      title:'Çevre Mühendisliği ve Kimya',
+      text:'Kirleticinin kaynağını, salımını, havada, suda ve toprakta taşınmasını ve dönüşümünü modeller; örnekleme cihazlarını ve analitik yöntemleri geliştirir. Kontrol teknolojileriyle maruziyeti azaltır.',
+      ex:'Ortak çalışma örneği: Talk işleme tesisinde toz dağılım modeli ve işçi solunum bölgesi ölçümüyle havalandırma tasarımı; çevre yerleşimlere yayılımın haritalanması.'},
+    gis:{label:['Veri Bilimi','/ GIS'],color:'#7E5BC2',
+      title:'Veri Bilimi ve Coğrafi Bilgi Sistemleri',
+      text:'Mekânsal-zamansal maruziyet yüzeyleri (LUR, uydu, makine öğrenmesi), sensör veri akışları ve ekzopozomun yüksek boyutlu verisi için istatistik ve hesaplama altyapısı sağlar.',
+      ex:'Ortak çalışma örneği: Eskişehir çevresindeki talk ve asbest jeolojisi, adres verisi ve kanser kayıtlarının mekânsal analizle birleştirilip kümelenme taranması.'},
+    cl:{label:['Klinik','Tıp'],color:'#1a8a5f',
+      title:'Klinik Tıp',
+      text:'Bireysel hastada maruziyet öyküsünü, biyobelirteç yorumunu ve erken etki bulgularını sahaya getirir. Aile hekimliği ve iş hekimliği maruziyet öyküsü almanın ilk basamağıdır.',
+      ex:'Ortak çalışma örneği: Mezotelyoma ve asbestoz vakalarında ayrıntılı maruziyet öyküsü ve akciğer dokusunda lif analiziyle kaynağın (meslek, ev, ürün) belirlenmesi.'}
+  };
+  var outer=['hs','ep','tx','em','gis','cl'];
+  var pos={es:{x:cx,y:cy}};
+  outer.forEach(function(k,i){
+    var a=-Math.PI/2+i*2*Math.PI/outer.length;
+    pos[k]={x:cx+R*Math.cos(a)*1.25,y:cy+R*Math.sin(a)};
+  });
+  var edges=[]; outer.forEach(function(k){edges.push(['es',k]);});
+  edges.push(['hs','ep'],['ep','tx'],['tx','em'],['em','gis'],['gis','cl'],['cl','hs'],['ep','gis'],['tx','cl']);
+  var gE=document.getElementById('edges'), gN=document.getElementById('nodes');
+  var edgeEls=[];
+  edges.forEach(function(e){
+    var l=document.createElementNS(NS,'line');
+    l.setAttribute('x1',pos[e[0]].x);l.setAttribute('y1',pos[e[0]].y);
+    l.setAttribute('x2',pos[e[1]].x);l.setAttribute('y2',pos[e[1]].y);
+    l.setAttribute('class','edge');
+    if(e[0]!=='es'){l.setAttribute('stroke-dasharray','5 6');l.style.strokeWidth='1.6';}
+    l.dataset.a=e[0];l.dataset.b=e[1];
+    gE.appendChild(l);edgeEls.push(l);
+  });
+  var nodeEls={};
+  Object.keys(pos).forEach(function(k){
+    var d=data[k], p=pos[k], r=(k==='es')?70:52;
+    var g=document.createElementNS(NS,'g');g.setAttribute('class','node');g.setAttribute('tabindex','0');
+    g.setAttribute('role','button');g.setAttribute('aria-label',d.title);
+    var halo=document.createElementNS(NS,'circle');halo.setAttribute('class','halo');
+    halo.setAttribute('cx',p.x);halo.setAttribute('cy',p.y);halo.setAttribute('r',r+12);
+    halo.setAttribute('fill',d.color);halo.setAttribute('opacity','0');
+    var c=document.createElementNS(NS,'circle');c.setAttribute('cx',p.x);c.setAttribute('cy',p.y);c.setAttribute('r',r);
+    c.setAttribute('fill',d.color);c.setAttribute('stroke','#fff');c.setAttribute('stroke-width','4');
+    g.appendChild(halo);g.appendChild(c);
+    var n=d.label.length, fs=(k==='es')?17:14;
+    d.label.forEach(function(t,i){
+      var tx=document.createElementNS(NS,'text');tx.setAttribute('x',p.x);
+      tx.setAttribute('y',p.y+(i-(n-1)/2)*(fs+3)+fs/3);
+      tx.setAttribute('text-anchor','middle');tx.setAttribute('fill','#fff');
+      tx.setAttribute('font-size',fs);tx.setAttribute('font-weight','700');
+      tx.textContent=t;g.appendChild(tx);
+    });
+    g.addEventListener('click',function(){select(k);});
+    g.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();select(k);}});
+    gN.appendChild(g);nodeEls[k]=g;
+  });
+  var panel=document.getElementById('infoPanel');
+  function select(k){
+    var d=data[k];
+    Object.keys(nodeEls).forEach(function(j){nodeEls[j].classList.toggle('active',j===k);});
+    edgeEls.forEach(function(l){l.classList.toggle('hl',l.dataset.a===k||l.dataset.b===k);});
+    panel.style.borderLeft='6px solid '+d.color;
+    panel.innerHTML='<h4 style="color:'+d.color+'">'+d.title+'</h4><p>'+d.text+'</p><div class="ex" style="border-left-color:'+d.color+'">'+d.ex+'</div>';
+  }
+  select('es');
+
+  /* ---------- Bölüm 3: Yöntem sekmeleri ---------- */
+  var tabs=document.querySelectorAll('.tab');
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      tabs.forEach(function(x){x.classList.remove('active');});
+      t.classList.add('active');
+      document.querySelectorAll('.method').forEach(function(m){m.classList.remove('show');});
+      document.getElementById('m-'+t.dataset.m).classList.add('show');
+    });
+  });
+
+  /* ---------- Bölüm 4: Zaman tüneli filtresi ---------- */
+  var fbtns=document.querySelectorAll('.fbtn');
+  fbtns.forEach(function(b){
+    b.addEventListener('click',function(){
+      fbtns.forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');
+      var f=b.dataset.f;
+      document.querySelectorAll('#timeline .tl').forEach(function(el){
+        el.classList.toggle('hide',!(f==='all'||el.dataset.t===f));
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
