@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistem Düşüncesi ve Halk Sağlığı — Görsel Anlatım</title>
+<style>
+  :root{
+    --bg:#0f172a; --card:#ffffff; --ink:#1e293b; --muted:#64748b;
+    --blue:#2563eb; --blue-l:#dbeafe; --teal:#0d9488; --teal-l:#ccfbf1;
+    --red:#dc2626; --red-l:#fee2e2; --amber:#d97706; --amber-l:#fef3c7;
+    --green:#16a34a; --green-l:#dcfce7; --purple:#7c3aed; --purple-l:#ede9fe;
+    --pink:#db2777; --pink-l:#fce7f3; --line:#e2e8f0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:linear-gradient(180deg,#f8fafc 0%,#eef2ff 100%);line-height:1.6;}
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 18px 80px;}
+  header.hero{background:linear-gradient(120deg,#1e3a8a,#7c3aed 60%,#0d9488);
+    color:#fff;border-radius:22px;padding:36px 30px;box-shadow:0 18px 40px rgba(30,58,138,.25);}
+  header.hero h1{margin:0 0 8px;font-size:30px;line-height:1.25;}
+  header.hero p{margin:0;opacity:.92;font-size:16px;}
+  .pill{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);
+    padding:5px 12px;border-radius:999px;font-size:12px;margin-bottom:14px;letter-spacing:.3px;}
+  nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;}
+  nav.toc a{font-size:13px;text-decoration:none;color:var(--blue);background:#fff;border:1px solid var(--line);
+    padding:7px 12px;border-radius:999px;transition:.15s;}
+  nav.toc a:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
+  section.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 26px 28px;
+    margin:22px 0;box-shadow:0 6px 18px rgba(15,23,42,.05);}
+  h2{font-size:23px;margin:0 0 4px;display:flex;align-items:center;gap:10px;}
+  h2 .num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;border-radius:10px;
+    background:var(--blue);color:#fff;font-size:16px;font-weight:700;}
+  .lead{color:var(--muted);margin:2px 0 18px;font-size:15px;}
+  h3{font-size:17px;margin:22px 0 8px;}
+  p{margin:10px 0;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  @media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr;}}
+  .box{border-radius:14px;padding:16px 16px;border:1px solid var(--line);}
+  .box h4{margin:0 0 6px;font-size:15px;display:flex;align-items:center;gap:8px;}
+  .box p{margin:4px 0;font-size:14px;}
+  .b-blue{background:var(--blue-l);border-color:#bfdbfe}
+  .b-teal{background:var(--teal-l);border-color:#99f6e4}
+  .b-red{background:var(--red-l);border-color:#fecaca}
+  .b-amber{background:var(--amber-l);border-color:#fde68a}
+  .b-green{background:var(--green-l);border-color:#bbf7d0}
+  .b-purple{background:var(--purple-l);border-color:#ddd6fe}
+  .b-pink{background:var(--pink-l);border-color:#fbcfe8}
+  .fig{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;padding:14px;margin:14px 0;text-align:center;}
+  .fig svg{max-width:100%;height:auto;}
+  .cap{font-size:13px;color:var(--muted);margin-top:8px;}
+  .key{display:flex;align-items:flex-start;gap:10px;margin:8px 0;font-size:14px;}
+  .dot{flex:0 0 auto;width:14px;height:14px;border-radius:50%;margin-top:5px;}
+  table.cmp{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px;overflow:hidden;border-radius:12px;}
+  table.cmp th,table.cmp td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+  table.cmp thead th{color:#fff;font-size:14px;}
+  table.cmp thead th:nth-child(1){background:#475569;border-top-left-radius:12px;}
+  table.cmp thead th:nth-child(2){background:var(--blue);}
+  table.cmp thead th:nth-child(3){background:var(--teal);border-top-right-radius:12px;}
+  table.cmp td:first-child{font-weight:600;background:#f1f5f9;}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;}
+  .tag-r{background:var(--red);color:#fff} .tag-g{background:var(--green);color:#fff}
+  .callout{border-left:5px solid var(--amber);background:var(--amber-l);padding:12px 16px;border-radius:0 12px 12px 0;margin:14px 0;font-size:14px;}
+  .callout.blue{border-color:var(--blue);background:var(--blue-l);}
+  details{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:4px 14px;margin:10px 0;}
+  summary{cursor:pointer;font-weight:600;padding:10px 0;font-size:15px;}
+  details p{font-size:14px;}
+  footer{color:var(--muted);font-size:13px;text-align:center;margin-top:30px;line-height:1.7;}
+  .emoji{font-size:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <span class="pill">Lise düzeyinde · görsel · renkli anlatım</span>
+  <h1>Sistem Düşüncesi <span style="opacity:.7">(Systems Thinking)</span><br>ve Halk Sağlığı</h1>
+  <p>Şemalar ve diyagramlarla, adım adım. Bir saatçi gözüyle değil, bir bahçıvan gözüyle bakmayı öğrenmek.</p>
+</header>
+
+<nav class="toc">
+  <a href="#s1">1 · Nedir?</a>
+  <a href="#s2">2 · Döngüler</a>
+  <a href="#s3">3 · Gecikme</a>
+  <a href="#s4">4 · Klasik vs Sistem</a>
+  <a href="#s5">5 · Kaldıraç</a>
+  <a href="#s6">6 · Obezite haritası</a>
+  <a href="#s7">7 · Yöntemler</a>
+  <a href="#s8">8 · Riskler & Eleştiri</a>
+</nav>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2><span class="num">1</span> Sistem düşüncesi nedir?</h2>
+  <p class="lead">İki farklı bakış: parçalara ayırmak mı, ilişkilere bakmak mı?</p>
+
+  <div class="grid2">
+    <div class="box b-blue">
+      <h4>🕰️ İndirgemeci bakış (saat)</h4>
+      <p>Bütünü <b>parçalara ayır</b>, her dişliyi tek tek incele. Saat gibi basit, öngörülebilir şeylerde mükemmel çalışır. Bilimin çoğu başarısı buradan gelir.</p>
+    </div>
+    <div class="box b-teal">
+      <h4>🌐 Sistem bakışı (ağ)</h4>
+      <p>Parçaların <b>birbirini nasıl etkilediğine</b> ve bütünün davranışına bak. Göl, trafik, toplum sağlığı gibi <b>canlı, birbirine bağlı</b> bütünlerde gereklidir.</p>
+    </div>
+  </div>
+
+  <div class="fig">
+    <svg viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Saat ve ağ karşılaştırması">
+      <!-- left: clock parts -->
+      <text x="130" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#2563eb">PARÇALARA AYIR</text>
+      <circle cx="60" cy="90" r="22" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+      <circle cx="130" cy="70" r="16" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+      <circle cx="200" cy="95" r="20" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+      <circle cx="95" cy="150" r="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+      <circle cx="170" cy="155" r="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+      <text x="130" y="205" text-anchor="middle" font-size="12" fill="#64748b">Her parça bağımsız incelenir</text>
+      <!-- divider -->
+      <line x1="380" y1="40" x2="380" y2="200" stroke="#cbd5e1" stroke-dasharray="5 5"/>
+      <!-- right: network -->
+      <text x="600" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#0d9488">İLİŞKİLERE BAK</text>
+      <g stroke="#0d9488" stroke-width="2">
+        <line x1="500" y1="80" x2="600" y2="60"/>
+        <line x1="600" y1="60" x2="690" y2="95"/>
+        <line x1="690" y1="95" x2="640" y2="160"/>
+        <line x1="640" y1="160" x2="540" y2="160"/>
+        <line x1="540" y1="160" x2="500" y2="80"/>
+        <line x1="600" y1="60" x2="540" y2="160"/>
+        <line x1="500" y1="80" x2="690" y2="95"/>
+      </g>
+      <g fill="#14b8a6" stroke="#0f766e" stroke-width="2">
+        <circle cx="500" cy="80" r="14"/><circle cx="600" cy="60" r="14"/>
+        <circle cx="690" cy="95" r="14"/><circle cx="640" cy="160" r="14"/>
+        <circle cx="540" cy="160" r="14"/>
+      </g>
+      <text x="600" y="205" text-anchor="middle" font-size="12" fill="#64748b">Parçalar birbirini etkiler</text>
+    </svg>
+    <div class="cap">Aynı parçalar — ama sistem bakışında <b>aralarındaki bağlar</b> da resmin parçasıdır.</div>
+  </div>
+
+  <h3>Bilmen gereken 6 temel kavram</h3>
+  <div class="key"><span class="dot" style="background:var(--blue)"></span><span><b>Geri besleme döngüsü:</b> Bir etkinin dönüp dolaşıp kendi kaynağını etkilemesi.</span></div>
+  <div class="key"><span class="dot" style="background:var(--amber)"></span><span><b>Gecikme:</b> Sebep ile sonuç arasındaki zaman (sigara → kanser: 20–30 yıl).</span></div>
+  <div class="key"><span class="dot" style="background:var(--red)"></span><span><b>Doğrusal olmama:</b> Küçük müdahale → kocaman sonuç; ya da büyük çaba → sıfır sonuç.</span></div>
+  <div class="key"><span class="dot" style="background:var(--purple)"></span><span><b>Beliren özellik:</b> Tek nöron düşünemez ama beyin düşünür; bütün, parçaların toplamından fazladır.</span></div>
+  <div class="key"><span class="dot" style="background:var(--green)"></span><span><b>Kaldıraç noktası:</b> Küçük dokunuşla büyük değişim yaratan kritik nokta.</span></div>
+  <div class="key"><span class="dot" style="background:var(--pink)"></span><span><b>Karmaşık uyarlanabilir sistem:</b> İçindeki insanların öğrenip davranış değiştirdiği, politikayı "atlatabilen" sistem.</span></div>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2><span class="num">2</span> İki tür geri besleme döngüsü</h2>
+  <p class="lead">Sistem düşüncesinin kalbi budur. Her döngü ya <b>büyütür</b> ya da <b>dengeler</b>.</p>
+
+  <div class="grid2">
+    <div class="box b-red">
+      <h4>🔁 Pekiştiren döngü <span class="tag tag-r">KARTOPU</span></h4>
+      <p>"Daha çok, daha çoğunu doğurur." Kontrolsüz büyüme veya çöküş yaratır.</p>
+      <div class="fig" style="background:#fff;border-style:solid">
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" aria-label="Pekiştiren döngü">
+          <defs><marker id="ar-r" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#dc2626"/></marker></defs>
+          <rect x="95" y="20" width="130" height="40" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+          <text x="160" y="45" text-anchor="middle" font-size="13" fill="#991b1b">Fast-food talebi</text>
+          <rect x="95" y="140" width="130" height="40" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+          <text x="160" y="165" text-anchor="middle" font-size="13" fill="#991b1b">Obezite oranı</text>
+          <path d="M210,60 C275,85 275,115 210,140" fill="none" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ar-r)"/>
+          <path d="M110,140 C45,115 45,85 110,60" fill="none" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ar-r)"/>
+          <text x="285" y="103" font-size="16" font-weight="700" fill="#dc2626">+</text>
+          <text x="20" y="103" font-size="16" font-weight="700" fill="#dc2626">+</text>
+          <circle cx="160" cy="100" r="16" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+          <text x="160" y="106" text-anchor="middle" font-size="16" font-weight="700" fill="#dc2626">R</text>
+        </svg>
+        <div class="cap">Talep artar → obezite artar → talep daha da artar…</div>
+      </div>
+    </div>
+
+    <div class="box b-blue">
+      <h4>⚖️ Dengeleyen döngü <span class="tag tag-g">TERMOSTAT</span></h4>
+      <p>Sistemi bir hedefe geri çeker, istikrar sağlar.</p>
+      <div class="fig" style="background:#fff;border-style:solid">
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" aria-label="Dengeleyen döngü">
+          <defs><marker id="ar-b" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2563eb"/></marker></defs>
+          <rect x="95" y="20" width="130" height="40" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+          <text x="160" y="45" text-anchor="middle" font-size="13" fill="#1e3a8a">Vücut ısısı ↑</text>
+          <rect x="95" y="140" width="130" height="40" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+          <text x="160" y="165" text-anchor="middle" font-size="13" fill="#1e3a8a">Terleme</text>
+          <path d="M210,60 C275,85 275,115 210,140" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ar-b)"/>
+          <path d="M110,140 C45,115 45,85 110,60" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ar-b)"/>
+          <text x="285" y="103" font-size="16" font-weight="700" fill="#2563eb">+</text>
+          <text x="22" y="103" font-size="18" font-weight="700" fill="#2563eb">−</text>
+          <circle cx="160" cy="100" r="16" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+          <text x="160" y="106" text-anchor="middle" font-size="16" font-weight="700" fill="#2563eb">B</text>
+        </svg>
+        <div class="cap">Isı artar → terleme artar → ısı düşer (denge).</div>
+      </div>
+    </div>
+  </div>
+  <div class="callout blue"><b>İpucu:</b> Ok üstündeki <b>+</b> "aynı yönde değişir", <b>−</b> "ters yönde değişir" demektir. Döngüde tek sayıda <b>−</b> varsa o döngü <b>dengeleyendir (B)</b>, hiç ya da çift sayıda varsa <b>pekiştirendir (R)</b>.</div>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2><span class="num">3</span> Gecikme: Neden yanlış karar veririz?</h2>
+  <p class="lead">Sebep ile sonuç arasında zaman olunca, müdahalenin etkisini geç görürüz ve fazla/erken tepki veririz.</p>
+  <div class="fig">
+    <svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" aria-label="Gecikme zaman çizelgesi">
+      <line x1="40" y1="150" x2="690" y2="150" stroke="#94a3b8" stroke-width="2"/>
+      <polygon points="690,150 678,144 678,156" fill="#94a3b8"/>
+      <text x="360" y="185" text-anchor="middle" font-size="12" fill="#64748b">zaman →</text>
+      <!-- action -->
+      <circle cx="110" cy="150" r="8" fill="#16a34a"/>
+      <text x="110" y="130" text-anchor="middle" font-size="12" fill="#16a34a" font-weight="700">Müdahale</text>
+      <text x="110" y="172" text-anchor="middle" font-size="11" fill="#64748b">(ör. politika)</text>
+      <!-- delay bracket -->
+      <path d="M110,95 H560" stroke="#d97706" stroke-width="2" stroke-dasharray="6 5"/>
+      <text x="335" y="86" text-anchor="middle" font-size="13" fill="#d97706" font-weight="700">⏳ GECİKME</text>
+      <!-- effect -->
+      <circle cx="560" cy="150" r="8" fill="#dc2626"/>
+      <text x="560" y="130" text-anchor="middle" font-size="12" fill="#dc2626" font-weight="700">Sonuç görünür</text>
+      <text x="560" y="172" text-anchor="middle" font-size="11" fill="#64748b">(ör. hastalık ↓)</text>
+    </svg>
+    <div class="cap"><b>Tehlike:</b> Sonucu hemen göremeyince "işe yaramadı" deyip vazgeçeriz — oysa etki yolda. Salgınlarda, iklimde ve kronik hastalıklarda en sık yapılan hata budur.</div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2><span class="num">4</span> Klasik epidemiyoloji vs Sistem düşüncesi</h2>
+  <p class="lead">Rakip değil, <b>tamamlayıcı</b>. Biri etkeni keskinleştirir, diğeri bütünü aydınlatır.</p>
+  <table class="cmp">
+    <thead><tr><th>Özellik</th><th>Klasik epidemiyoloji / program mantığı</th><th>Sistem düşüncesi</th></tr></thead>
+    <tbody>
+      <tr><td>Temel soru</td><td>Hangi risk faktörü sonuca yol açıyor?</td><td>Parçalar zaman içinde birbirini nasıl besliyor?</td></tr>
+      <tr><td>Bakış</td><td>İndirgemeci — bütünü parçala</td><td>Bütüncül — ilişki ve döngülere bak</td></tr>
+      <tr><td>Neden–sonuç</td><td>Çoğunlukla tek yönlü, düz zincir</td><td>Çok yönlü, döngüsel, geri beslemeli</td></tr>
+      <tr><td>Zaman</td><td>Genelde tek kesit / kısa vade</td><td>Dinamik — gecikme ve uzun vade</td></tr>
+      <tr><td>Tipik yöntem</td><td>RKÇ, kohort, olgu-kontrol, regresyon</td><td>Sistem dinamiği, ajan-temelli model, ağ analizi</td></tr>
+      <tr><td>En güçlü yanı</td><td>Etkeni kesin ölçmek</td><td>Karmaşık, dirençli sorunları anlamak</td></tr>
+    </tbody>
+  </table>
+  <div class="callout"><span class="emoji">🍔</span> <b>Obezite örneği:</b> Klasik bakış "az ye, çok hareket et" der. Sistem bakışı; gıda fiyatı, reklam, şehir planı, stres, uyku, ulaşım ve sektörün birbirini beslediği bir <b>ağ</b> görür — bu yüzden tek müdahale çoğu zaman yetmez.</div>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2><span class="num">5</span> Kaldıraç noktaları: Nereye dokunmalı?</h2>
+  <p class="lead">Donella Meadows'un fikri: En zayıf kaldıraç sayıları (bütçe) değiştirmek; en güçlüsü ise sistemin <b>kurallarını ve amacını</b> değiştirmektir.</p>
+  <div class="fig">
+    <svg viewBox="0 0 720 270" xmlns="http://www.w3.org/2000/svg" aria-label="Kaldıraç noktaları merdiveni">
+      <!-- steps from weak (bottom) to strong (top) -->
+      <g font-size="13">
+        <rect x="60" y="210" width="600" height="40" rx="8" fill="#fee2e2" stroke="#dc2626"/>
+        <text x="80" y="235" fill="#991b1b">Sayılar / parametreler (ör. bütçe, vergi oranı) — <b>en zayıf etki</b></text>
+        <rect x="110" y="160" width="550" height="40" rx="8" fill="#fef3c7" stroke="#d97706"/>
+        <text x="130" y="185" fill="#92400e">Geri besleme döngülerinin gücü (ör. teşvik–ceza)</text>
+        <rect x="160" y="110" width="500" height="40" rx="8" fill="#dcfce7" stroke="#16a34a"/>
+        <text x="180" y="135" fill="#166534">Bilgi akışı &amp; kimin neye eriştiği (şeffaflık)</text>
+        <rect x="210" y="60" width="450" height="40" rx="8" fill="#dbeafe" stroke="#2563eb"/>
+        <text x="230" y="85" fill="#1e3a8a">Sistemin kuralları (yasalar, kurumsal yapı)</text>
+        <rect x="260" y="14" width="400" height="38" rx="8" fill="#ede9fe" stroke="#7c3aed"/>
+        <text x="280" y="38" fill="#5b21b6"><b>Amaç &amp; zihniyet (paradigma) — en güçlü etki</b></text>
+      </g>
+      <text x="30" y="40" font-size="12" fill="#7c3aed" transform="rotate(-90 30 130)">GÜÇ ARTAR ↑</text>
+    </svg>
+    <div class="cap">Halk sağlığında: Sadece bütçe artırmak (alt basamak) yerine, sağlığı "tüm politikalara" yerleştirmek (üst basamak) çok daha kalıcı sonuç verir.</div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6">
+  <h2><span class="num">6</span> Basitleştirilmiş "obezite sistem haritası"</h2>
+  <p class="lead">İngiltere'nin ünlü <i>Foresight</i> haritası ~100 faktör içerir. İşte küçük bir özeti — her ok bir etkiyi gösterir.</p>
+  <div class="fig">
+    <svg viewBox="0 0 740 380" xmlns="http://www.w3.org/2000/svg" aria-label="Basit obezite nedensel döngü haritası">
+      <defs><marker id="ag" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker></defs>
+      <!-- nodes -->
+      <g font-size="12.5" text-anchor="middle">
+        <g><ellipse cx="370" cy="190" rx="62" ry="34" fill="#fde68a" stroke="#d97706" stroke-width="2.5"/><text x="370" y="186" font-weight="700" fill="#92400e">OBEZİTE</text><text x="370" y="202" fill="#92400e" font-size="11">(merkez)</text></g>
+        <g><rect x="60" y="40" width="130" height="46" rx="10" fill="#dbeafe" stroke="#2563eb"/><text x="125" y="62" fill="#1e3a8a">Ucuz, kalorili</text><text x="125" y="78" fill="#1e3a8a">gıdaya erişim</text></g>
+        <g><rect x="300" y="20" width="140" height="46" rx="10" fill="#fce7f3" stroke="#db2777"/><text x="370" y="42" fill="#9d174d">Gıda reklamı &amp;</text><text x="370" y="58" fill="#9d174d">pazarlama</text></g>
+        <g><rect x="555" y="40" width="130" height="46" rx="10" fill="#ede9fe" stroke="#7c3aed"/><text x="620" y="62" fill="#5b21b6">Hareketsiz</text><text x="620" y="78" fill="#5b21b6">yaşam / ulaşım</text></g>
+        <g><rect x="40" y="180" width="130" height="46" rx="10" fill="#dcfce7" stroke="#16a34a"/><text x="105" y="202" fill="#166534">Sosyoekonomik</text><text x="105" y="218" fill="#166534">durum ↓</text></g>
+        <g><rect x="575" y="180" width="135" height="46" rx="10" fill="#ccfbf1" stroke="#0d9488"/><text x="642" y="202" fill="#115e59">Stres &amp; az uyku</text></g>
+        <g><rect x="70" y="310" width="135" height="46" rx="10" fill="#fee2e2" stroke="#dc2626"/><text x="137" y="332" fill="#991b1b">Kronik hastalık</text><text x="137" y="348" fill="#991b1b">(diyabet vb.)</text></g>
+        <g><rect x="300" y="320" width="150" height="46" rx="10" fill="#f1f5f9" stroke="#475569"/><text x="375" y="342" fill="#334155">Sağlık harcaması</text><text x="375" y="358" fill="#334155">&amp; iş gücü kaybı ↑</text></g>
+        <g><rect x="545" y="310" width="150" height="46" rx="10" fill="#fef3c7" stroke="#d97706"/><text x="620" y="332" fill="#92400e">Gıda endüstrisi</text><text x="620" y="348" fill="#92400e">geliri ↑</text></g>
+      </g>
+      <!-- arrows -->
+      <g fill="none" stroke="#475569" stroke-width="2" marker-end="url(#ag)">
+        <path d="M150,86 C220,120 270,150 312,172"/>
+        <path d="M370,66 L370,154"/>
+        <path d="M560,86 C500,120 450,150 425,168"/>
+        <path d="M120,226 C160,250 250,210 312,196"/>
+        <path d="M600,226 C540,250 470,215 432,198"/>
+        <path d="M360,224 C300,270 200,290 150,308"/>
+        <path d="M390,224 C400,260 390,290 380,318"/>
+        <path d="M428,210 C500,260 560,290 600,308"/>
+        <!-- feedback loop: industry geliri -> reklam -->
+        <path d="M620,310 C660,200 600,90 690,86" stroke="#db2777" stroke-dasharray="6 5"/>
+      </g>
+      <text x="700" y="200" font-size="11" fill="#db2777" transform="rotate(90 700 200)">pekiştiren döngü (R)</text>
+    </svg>
+    <div class="cap">Pembe kesik ok bir <b>pekiştiren döngü</b>: endüstri geliri ↑ → daha çok reklam → obezite ↑ → gelir ↑ … Tek bir "diyet öğüdü" bu ağı kıramaz.</div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="card" id="s7">
+  <h2><span class="num">7</span> Sistem düşüncesinin araç kutusu</h2>
+  <p class="lead">Haritadan modele: dört temel yöntem.</p>
+  <div class="grid2">
+    <div class="box b-blue"><h4>🗺️ Nedensel döngü diyagramı (CLD)</h4><p>Ok ve döngülerden oluşan harita. Çizmesi en kolay, anlatması en güçlü araç. (Bölüm 6 bir örnektir.)</p></div>
+    <div class="box b-teal"><h4>📈 Sistem dinamiği</h4><p>Stok–akış denklemleriyle zaman içindeki davranışı bilgisayarda simüle eder (Forrester geleneği).</p></div>
+    <div class="box b-purple"><h4>🧍‍♂️ Ajan-temelli modelleme</h4><p>Tek tek "bireyleri" yazılımda yaşatıp toplum düzeyinde belireni (salgın yayılımı gibi) gözlemler.</p></div>
+    <div class="box b-green"><h4>🔗 Sosyal ağ analizi</h4><p>Davranış ve hastalıkların ilişkiler ağı üzerinden nasıl yayıldığını inceler.</p></div>
+  </div>
+  <div class="callout blue"><b>Gerçek uygulamalar:</b> DSÖ'nün 2009 "Systems Thinking for Health Systems Strengthening" raporu · İngiltere Foresight obezite haritası · ABD tütün kontrolü modelleri · COVID-19 senaryo modelleri.</div>
+</section>
+
+<!-- 8 -->
+<section class="card" id="s8">
+  <h2><span class="num">8</span> Riskler ve eleştiriler</h2>
+  <p class="lead">Güçlü bir araç — ama büyülü değil. Dikkat edilmesi gerekenler:</p>
+  <div class="grid3">
+    <div class="box b-red"><h4>⚠️ Eylemsizlik bahanesi</h4><p>"Her şey her şeye bağlı" deyip karar vermeyi sonsuza dek ertelemek.</p></div>
+    <div class="box b-red"><h4>🖥️ Model ≠ gerçek</h4><p>Şık bir diyagram, içine konan varsayımlar kadar iyidir. "Bilgisayar söyledi" yanılgısı.</p></div>
+    <div class="box b-amber"><h4>📊 Veri & emek yükü</h4><p>İyi modeller çok veri, zaman ve disiplinlerarası ekip ister; kaynağı kısıtlı yerlerde zor.</p></div>
+    <div class="box b-amber"><h4>✏️ Öznellik</h4><p>Haritayı çizenin bakışı yansır; "hangi oklar var" değer yüklü bir seçimdir.</p></div>
+    <div class="box b-purple"><h4>🔬 Değerlendirme güçlüğü</h4><p>Çok bileşenli müdahalelerin etkisini klasik RKÇ ile ölçmek zordur (Lancet 2017 tartışması).</p></div>
+    <div class="box b-purple"><h4>⚖️ Eşitsizlik körlüğü</h4><p>Sistemi "nötr" döngü gibi çizmek, içindeki güç ilişkilerini gizleyebilir.</p></div>
+  </div>
+  <div class="callout"><b>En sağlıklı tutum:</b> İki bakışı birlikte kullan. Modelleri <b>alçakgönüllülükle</b>, <b>eşitlik duyarlılığıyla</b> ve <b>eyleme dönük</b> biçimde kullan.</div>
+</section>
+
+<footer>
+  Bu görsel anlatım, halk sağlığı pratisyenleri için lise düzeyinde bir giriş olarak hazırlanmıştır.<br>
+  Kaynaklar: von Bertalanffy (1968) · Forrester (1961) · Meadows (2008) · Senge (1990) · Sterman (2006) ·
+  de Savigny &amp; Adam / WHO (2009) · Luke &amp; Stamatakis (2012) · Diez Roux (2011) · Foresight (2007) · Rutter ve ark. / Lancet (2017).<br>
+  <i>Tam kaynakça için eşlik eden Word belgesine bakınız.</i>
+</footer>
+
+</div>
+</body>
+</html>
